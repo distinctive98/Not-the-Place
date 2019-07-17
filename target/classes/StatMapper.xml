@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="resource.StatMapper">
+	
+ 	<!-- insert -->
+ 	<insert id="insertStat" parameterType="vo.StatsVO">
+ 		<selectKey resultType="int" keyProperty="stat_no" order="BEFORE">
+      		SELECT SEQ_STATS_SEQUENCE.NEXTVAL FROM DUAL
+    	</selectKey>
+    	INSERT INTO STATS VALUES(#{stat_no}, #{report_no}, #{addressVO.address_level1}, #{addressVO.address_level2}, #{addressVO.address_level3}, #{timeVO.time_level1}, #{timeVO.time_level2}, #{timeVO.time_level3})
+ 	</insert>
+ 	
+ 	<!-- search -->
+ 	<select id="searchStat" parameterType="vo.StatSearchVO" resultType="vo.StatSearchVO">
+ 		<choose>
+	 		<when test="addressLevel.equals('address_level1')">
+	 			<choose>
+		 			<when test="timeLevel.equals('time_level1')">
+		 			SELECT ADDRESS_LEVEL1 addressLevel, TIME_LEVEL1 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL1, TIME_LEVEL1 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level2')">
+			 			SELECT ADDRESS_LEVEL1 addressLevel, TIME_LEVEL2 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL1, TIME_LEVEL2 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level3')">
+			 			SELECT ADDRESS_LEVEL1 addressLevel, TIME_LEVEL3 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL1, TIME_LEVEL3 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<otherwise>
+			 			SELECT ADDRESS_LEVEL1 addressLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL1 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</otherwise>
+		 		</choose>
+	 		</when>
+	 		<when test="addressLevel.equals('address_level2')">
+	 			<choose>
+		 			<when test="timeLevel.equals('time_level1')">
+		 				SELECT ADDRESS_LEVEL2 addressLevel, TIME_LEVEL1 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL2, TIME_LEVEL1 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level2')">
+			 			SELECT ADDRESS_LEVEL2 addressLevel, TIME_LEVEL2 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL2, TIME_LEVEL2 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level3')">
+			 			SELECT ADDRESS_LEVEL2 addressLevel, TIME_LEVEL3 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL2, TIME_LEVEL3 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<otherwise>
+			 			SELECT ADDRESS_LEVEL2 addressLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL2 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</otherwise>
+		 		</choose>
+	 		</when>
+	 		<when test="addressLevel.equals('address_level3')">
+	 			<choose>
+		 			<when test="timeLevel.equals('time_level1')">
+		 				SELECT ADDRESS_LEVEL3 addressLevel, TIME_LEVEL1 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL3, TIME_LEVEL1 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level2')">
+			 			SELECT ADDRESS_LEVEL3 addressLevel, TIME_LEVEL2 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL3, TIME_LEVEL2 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level3')">
+			 			SELECT ADDRESS_LEVEL3 addressLevel, TIME_LEVEL3 timeLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL3, TIME_LEVEL3 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<otherwise>
+			 			SELECT ADDRESS_LEVEL3 addressLevel, COUNT(*) count FROM STATS GROUP BY ADDRESS_LEVEL3 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</otherwise>
+		 		</choose>
+	 		</when>
+	 		<otherwise>
+	 			<choose>
+		 			<when test="timeLevel.equals('time_level1')">
+		 				SELECT TIME_LEVEL1 timeLevel, COUNT(*) count FROM STATS GROUP BY TIME_LEVEL1 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level2')">
+			 			SELECT TIME_LEVEL2 timeLevel, COUNT(*) count FROM STATS GROUP BY TIME_LEVEL2 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<when test="timeLevel.equals('time_level3')">
+			 			SELECT TIME_LEVEL3 timeLevel, COUNT(*) count FROM STATS GROUP BY TIME_LEVEL3 HAVING COUNT(*) >= 1 ORDER BY count DESC	
+			 		</when>
+			 		<otherwise>
+			 			SELECT COUNT(*) count FROM STATS ORDER BY count DESC	
+			 		</otherwise>
+		 		</choose>
+	 		</otherwise>
+ 		</choose>
+ 		
+ 	</select>
+</mapper>
