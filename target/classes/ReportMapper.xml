@@ -21,12 +21,14 @@
  	
  	<!-- insert -->
  	<insert id="insertReport" parameterType="vo.ReportsVO">
- 		<!-- <selectKey resultType="int" keyProperty="report_no" order="BEFORE">
-      		SELECT SEQ_REPORTS_SEQUENCE.NEXTVAL FROM DUAL
-    	</selectKey> -->
     	INSERT INTO REPORTS(REPORT_NO, TITLE, WRITEDATE, NICKNAME, CONTENT, REPORT_TIME, REPORT_ADDRESS, IMAGE, CAR_ID, CNT) VALUES(SEQ_REPORTS_SEQUENCE.NEXTVAL, #{title}, TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI'), #{nickname}, #{content}, #{report_time}, #{report_address}, #{image}, #{car_id}, 0)
     	<selectKey resultType="int" keyProperty="report_no" order="AFTER">
       		SELECT SEQ_REPORTS_SEQUENCE.CURRVAL FROM DUAL
     	</selectKey>
  	</insert>
+ 	
+ 	<!-- delete -->
+ 	<delete id="deleteReport" parameterType="int">
+ 		DELETE FROM REPORTS WHERE REPORT_NO = #{id}
+ 	</delete>
 </mapper>

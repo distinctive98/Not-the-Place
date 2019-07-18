@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="resource.LoginMapper">
-	<!-- listOne -->
- 	<select id="listOne"  parameterType="vo.UsersVO" resultType="vo.UsersVO">
-    	
- 	</select>
+	<!-- isLogin -->
+	<select id="login" parameterType="vo.UsersVO" resultType="vo.UsersVO">
+		SELECT * FROM USERS WHERE EMAIL = #{email} and PASSWORD = #{password}
+	</select>
 </mapper>

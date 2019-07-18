@@ -20,6 +20,8 @@ public class ReportController {
 	@Autowired
 	StatDAO statDAO;
 	@Autowired
+	UserDAO userDAO;
+	@Autowired
 	ImageService imageService;	
 	@Autowired
 	AddressService addressService;
@@ -43,13 +45,15 @@ public class ReportController {
 	@RequestMapping(value="/parking/report/select", method=RequestMethod.GET)
 	protected ModelAndView getReportSelect(int id) {
 		ModelAndView mav = new ModelAndView();
-		System.out.println(id);
+		//vo 정보 받기
 		ReportsVO vo = reportDAO.selectReport(id);
 		
 		if(vo == null) {
 			System.out.println("값이 전달되지 않았습니다.");
 		}
+		String email = userDAO.selectEmail(vo.getNickname());
 		
+		mav.addObject("email", email);
 		mav.addObject("vo", vo);
 		mav.setViewName("report_select");
 			
@@ -62,8 +66,8 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value="/parking/report/write", method=RequestMethod.POST)
-	protected ModelAndView postReportWrite(ReportsVO vo, MultipartRequest mreq) throws ParseException {
-		ModelAndView mav = new ModelAndView();
+	protected String postReportWrite(ReportsVO vo, MultipartRequest mreq) throws ParseException {
+		//ModelAndView mav = new ModelAndView();
 		
 		//image 저장
 		MultipartFile mfile = mreq.getFile("imageInfo");
@@ -111,8 +115,17 @@ public class ReportController {
 			System.out.println("Stat 삽입을 하지 않았습니다.");
 		}
 		
-		mav.setViewName("report");
-		return mav;
+		//mav.setViewName("report");
+		return "redirect:/parking/report";
 	}
 	
+	@RequestMapping(value="/parking/report/delete", method=RequestMethod.GET)
+	protected String getReportDelete(int id) {
+		if(reportDAO.deleteReport(id)) {
+			System.out.println("삭제되었습니다.");
+		} else {
+			System.out.println("삭제를 실패하였습니다.");
+		}
+		return "redirect:/parking/report";
+	}
 }

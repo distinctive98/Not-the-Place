@@ -47,11 +47,18 @@ public class ReportDAO {
 		String statement = "resource.ReportMapper.insertReport";
 		if(session.insert(statement, vo) != 1)
 			report_no = 0;
-		else {
+		else
 			report_no = vo.getReport_no();
-		}
 		return report_no;
 	}
 	
+	public boolean deleteReport(int id) {
+		boolean result = true;
+		String statement = "resource.ReportMapper.deleteReport";
+		if(session.delete(statement, id) != 1) {
+			result = false;
+		}
+		return result;
+	}
 	
 }

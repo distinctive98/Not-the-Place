@@ -5,7 +5,6 @@ public class UsersVO {
 	private String email;
 	private String password;
 	private String nickname;
-	private String user_session;
 	
 	public int getUser_no() {
 		return user_no;
@@ -31,12 +30,4 @@ public class UsersVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getUser_session() {
-		return user_session;
-	}
-	public void setUser_session(String user_session) {
-		this.user_session = user_session;
-	}
-	
-	
 }

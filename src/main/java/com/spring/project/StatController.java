@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
 
 import dao.*;
+import service.*;
 import vo.*;
 
 @Controller
 public class StatController {
 	@Autowired
 	StatDAO dao;
+	@Autowired
+	StatTitleService service;
 	
 	@RequestMapping(value="/parking/stat", method=RequestMethod.GET)
 	protected ModelAndView getReport() {
@@ -29,6 +32,9 @@ public class StatController {
 		List<StatSearchVO> list = dao.searchStat(vo);
 		mav.addObject("list", list);
 		mav.setViewName("stat");
+		
+		//getTitle
+		mav.addObject("title", service.getTitle(vo));
 		return mav;
 	}
 }
