@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <style>
 svg {
@@ -50,8 +52,9 @@ svg {
 </head>
 <body>
 
+	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-		<div class="container">
+		<div class="container-fluid">
 			<a class="navbar-brand" href="/project/parking/main"
 				style="padding-top: 0 !important; padding-bottom: 0 !important; margin-right: 0 !important;">
 				<img src="/project/resources/images/title1.png"
@@ -72,16 +75,25 @@ svg {
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/qna">Q&amp;A</a></li>
-					<c:if test="${empty user}">
-						<li class="nav-item"><a class="nav-link"
-							href="/project/parking/login">로그인</a></li>
-					</c:if>
-					<c:if test="${!empty user}">
-						<li class="nav-item"><a class="nav-link"
-							href="/project/parking/logout">로그아웃</a></li>
-					</c:if>
 				</ul>
 			</div>
+			<c:if test="${empty user}">
+				<a href="/project/parking/login"><button type="button"
+						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+			</c:if>
+			<c:if test="${!empty user}">
+				<!-- <li class="nav-item"><a class="nav-link"
+							 href="/project/parking/logout">로그아웃</a></li> -->
+				<div class="btn-group">
+					<button type="button" class="btn btn-secondary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<button class="dropdown-item" type="button">마이페이지</button>
+						<a href="/project/parking/logout"><button
+								class="dropdown-item" type="button">로그아웃</button></a>
+					</div>
+				</div>
+			</c:if>
 		</div>
 	</nav>
 
@@ -123,7 +135,7 @@ svg {
 			</div>
 
 			<div class="container text-center" style="padding-bottom: 10px">
-				<button type="submit" class="btn btn-lg btn-outline-primary">검색하기</button>
+				<button type="submit" class="btn btn-lg btn-secondary">검색하기</button>
 			</div>
 
 		</form>

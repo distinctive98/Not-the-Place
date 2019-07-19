@@ -88,9 +88,16 @@
 		</div>
 	</nav>
 
+	<c:if test="${empty vo}">
+		<script>
+			alert("잘못된 접근입니다")
+			location.href = "/project/parking/main";
+		</script>
+	</c:if>
+	
 	<c:if test="${empty user}">
 		<script>
-			alert("로그인 후 이용하실 수 있습니다")
+			alert("로그인 후 이용 가능합니다")
 			location.href = "/project/parking/login";
 		</script>
 	</c:if>
@@ -98,77 +105,79 @@
 	<div class="container-fluid center">
 		<div class="text-center" style="height: 300px">
 			<div style="padding-top: 100px">
-				<h1>신고 작성</h1>
+				<h1>신고 수정</h1>
 				<h4>세상을 변화시키는 작은 움직임</h4>
 			</div>
 		</div>
 	</div>
 	<hr>
 
-	<div class="container">
-		<form method="post" action="/project/parking/report/write"
-			enctype="multipart/form-data">
-			<input type="hidden" name="email" value="${user.email}">
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">제목</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control" id="titleForm" name="title"
-						placeholder="제목을 입력하세요" required>
+	<c:if test="${!empty vo}">
+		<div class="container">
+			<form method="post" action="/project/parking/report/update"
+				enctype="multipart/form-data">
+				<input type="hidden" name="report_no" value="${vo.report_no}">
+				<input type="hidden" name="nickname" value="${vo.nickname}">
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">제목</label>
+					<div class="col-sm-11">
+						<input type="text" class="form-control" id="titleForm"
+							name="title" value="${vo.title}" required>
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">내용</label>
-				<div class="col-sm-11">
-					<textarea class="form-control" id="contentForm" name="content"
-						placeholder="내용을 입력하세요" rows="5" required></textarea>
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">내용</label>
+					<div class="col-sm-11">
+						<textarea class="form-control" id="contentForm" name="content" rows="5"  required>${vo.content}</textarea>
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">차량번호</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control" id="car_idForm"
-						name="car_id" placeholder="차량번호를 입력하세요">
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">차량번호</label>
+					<div class="col-sm-11">
+						<input type="text" class="form-control" id="car_idForm"
+							name="car_id" value="${vo.car_id}">
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">발견일시</label>
-				<div class="col-sm-11">
-					<input type="datetime-local" class="form-control"
-						id="report_timeForm" name="report_time" required>
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">발견일시</label>
+					<div class="col-sm-11">
+						<input type="datetime-local" class="form-control"
+							id="report_timeForm" name="report_time" required>
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">발견위치</label>
-				<div class="col-sm-11">
-					<input id="report_addressForm" type="text" class="form-control"
-						name="report_address" readonly required><br>
-					<!-- <button class="col-sm-1">검색</button> -->
-					<div id="map" style="height: 300px"></div>
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">발견위치</label>
+					<div class="col-sm-11">
+						<input id="report_addressForm" type="text" class="form-control"
+							name="report_address" readonly required><br>
+						<!-- <button class="col-sm-1">검색</button> -->
+						<div id="map" style="height: 300px"></div>
+					</div>
 				</div>
-			</div>
 
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">이미지</label>
-				<div class="col-sm-11 custom-file">
-					<input type="file" class="custom-file-input"
-						accept=".gif, .jpg, .png" name="imageInfo" id="imageBtn">
-					<label class="custom-file-label" for="customFile" id="imageLabel">이미지
-						파일</label>
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">이미지</label>
+					<div class="col-sm-11 custom-file">
+						<input type="file" class="custom-file-input"
+							accept=".gif, .jpg, .png" name="imageInfo" id="imageBtn">
+						<label class="custom-file-label" for="customFile" id="imageLabel">이미지
+							파일</label>
+					</div>
 				</div>
-			</div>
 
-			<div class="container text-center">
-				<button type="submit" class="btn btn-lg btn-outline-primary">작성하기</button>
-				<button type="button" class="btn btn-outline-secondary btn-lg"
-					id="cancelBtn">취소하기</button>
-			</div>
+				<div class="container text-center">
+					<button type="submit" class="btn btn-lg btn-outline-primary">수정하기</button>
+					<button type="button" class="btn btn-outline-secondary btn-lg"
+						id="cancelBtn">취소하기</button>
+				</div>
 
-		</form>
-	</div>
+			</form>
+		</div>
+	</c:if>
 
 	<!-- FOOTER -->
 	<div class="footer">
@@ -246,7 +255,6 @@
 		}
 
 		function showError(error) {
-			/*
 			switch (error.code) {
 			case error.PERMISSION_DENIED:
 				alert("사용자가 위치 기능 사용을 거부했습니다.");
@@ -262,7 +270,6 @@
 			case error.UNKNOWN_ERROR:
 				alert("기타 에러");
 			}
-			*/
 
 			map = L.map('map').setView([ 37.5017, 127.0409 ], 17);
 			L
@@ -275,24 +282,9 @@
 										+ 'Imagery <a href="https://www.mapbox.com/">Mapbox</a>',
 								id : 'mapbox.streets'
 							}).addTo(map);
-			
-			L.marker([ 37.5017, 127.0409 ]).addTo(map).bindPopup("<b>불법 주차 위치")
-			.openPopup();
-			
-			var latlng = encodeURIComponent(37.5017 + "," + 127.0409);
-
-			$
-					.getJSON(
-							"https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-nx_y7aBlJgfgVZRaIwMbnShQJsxpryY&latlng="
-									+ latlng, function(data) {
-								$("#report_addressForm").val(
-										data.results[0].formatted_address);
-
-							});
 
 			map.on('click', onMapClick);
 		}
 	</script>
-
 </body>
 </html>

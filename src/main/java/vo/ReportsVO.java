@@ -11,6 +11,9 @@ public class ReportsVO {
 	String car_id;
 	int cnt;
 	String writedate;
+	//페이지 변수
+	int startIndex;
+	int cntPerPage;
 	
 	
 	public int getReport_no() {
@@ -73,4 +76,17 @@ public class ReportsVO {
 	public void setWritedate(String writedate) {
 		this.writedate = writedate;
 	}
+	public int getStartIndex() {
+		return startIndex;
+	}
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+	public int getCntPerPage() {
+		return cntPerPage;
+	}
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
+	}
+
 }

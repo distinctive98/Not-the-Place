@@ -7,4 +7,12 @@
 	<select id="selectEmail" parameterType="String" resultType="vo.UsersVO">
 		SELECT EMAIL FROM USERS WHERE NICKNAME = #{nickname}
 	</select>
+	
+	<select id="selectNickname" parameterType="String" resultType="vo.UsersVO">
+		SELECT NICKNAME FROM USERS WHERE EMAIL = #{email}
+	</select>
+	
+	<select id="selectAdmin" parameterType="String" resultType="vo.UsersVO">
+		SELECT ADMIN FROM USERS WHERE EMAIL = #{email}
+	</select>
 </mapper>

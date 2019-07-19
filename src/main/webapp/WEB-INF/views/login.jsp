@@ -32,7 +32,6 @@
 
 .card-signin .card-img-left {
 	width: 45%;
-	/* Link to your background image using in the property below! */
 	background: scroll center url("/project/resources/images/parking.png");
 	background-size: cover;
 }
@@ -90,6 +89,7 @@
 	color: #495057;
 	border: 1px solid transparent;
 	border-radius: .25rem;
+	transition: all .1s ease-in-out;
 }
 
 .imgloc {
@@ -102,9 +102,8 @@
 	<div class="container text-center">
 		<div style="margin-top: 150px"></div>
 		<div class="container">
-			<a href="/project/parking/main"><img class="imgloc"
-				src="/project/resources/images/title2.png" id="mainBtn"
-				style="width: 200px !important;"></a>
+			<img class="imgloc" src="/project/resources/images/title2.png"
+				id="mainImg" style="width: 200px !important; margin-bottom: -30px">
 		</div>
 		<div class="row">
 			<div class="col-lg-13 col-xl-10 mx-auto">
@@ -112,7 +111,8 @@
 					<div class="card-img-left d-none d-md-flex"></div>
 					<div class="card-body">
 						<h5 class="card-title text-center"
-							style="text-align: center; font-family: NanumBarunGothic">안녕하세요!</h5>
+							style="text-align: center; font-family: NanumBarunGothic; margin-bottom: 45px">안녕하세요!</h5>
+
 						<form method="post" action="/project/parking/login">
 							<div class="form-label-group">
 								<input type="email" id="inputEmail" class="form-control"
@@ -138,6 +138,7 @@
 								<a class="small" href="/project/parking/main">메인으로 이동하기</a>
 							</div>
 						</form>
+
 					</div>
 				</div>
 			</div>
@@ -147,6 +148,10 @@
 	<script>
 		$("#registerBtn").click(function() {
 			location.href = "/project/parking/register";
+		});
+		
+		$("#mainImg").click(function(){
+			location.href="/project/parking/main";
 		});
 	</script>
 </body>

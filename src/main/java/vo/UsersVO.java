@@ -5,6 +5,7 @@ public class UsersVO {
 	private String email;
 	private String password;
 	private String nickname;
+	private String admin;
 	
 	public int getUser_no() {
 		return user_no;
@@ -29,5 +30,11 @@ public class UsersVO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public String getAdmin() {
+		return admin;
+	}
+	public void setAdmin(String admin) {
+		this.admin = admin;
 	}
 }

@@ -8,10 +8,10 @@
 	<insert id="insert"  parameterType="vo.UsersVO">
 			
   		<selectKey resultType="int" keyProperty="user_no" order="BEFORE">
-      		select SEQ_USERS_SEQUENCE.nextval from dual     
+      		SELECT SEQ_USERS_SEQUENCE.NEXTVAL FROM DUAL     
     	</selectKey>  
     		INSERT INTO USERS 
-    		values (#{user_no}, #{email}, #{password}, #{nickname})
+    		VALUES (#{user_no}, #{email}, #{password}, #{nickname}, NULL)
 	</insert>
 	<!--닉네임중복  -->
 	<select id="searchNickname" parameterType="string" resultType="vo.UsersVO">

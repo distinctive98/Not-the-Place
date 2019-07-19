@@ -28,4 +28,12 @@ public class StatDAO {
 		list = session.selectList(statement, vo);
 		return list;
 	}
+	
+	public boolean updateStat(StatsVO vo) {
+		boolean result = true;
+		String statement = "resource.StatMapper.updateStat";
+		if(session.update(statement, vo) != 1)
+			result = false;
+		return result;
+	}
 }

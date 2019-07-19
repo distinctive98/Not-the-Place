@@ -4,36 +4,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 
 <style>
 .nav-item {
 	font-family: "NanumMyeongjo";
 	font-weight: bold;
 }
-
-.footer {
-	margin-top: 20px;
-	background-color: #595959;
-	text-align: center;
-	height: 50px;
-}
-
-.footertxt {
-	padding-top: 10px;
-	color: white;
-}
 </style>
 
 </head>
 <body>
-
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container-fluid">
@@ -82,96 +69,52 @@
 	<div class="container-fluid center">
 		<div class="text-center" style="height: 300px">
 			<div style="padding-top: 100px">
-				<h1>신고 확인</h1>
+				<h1>Q&amp;A</h1>
+				<h4>궁금해 하는 모든 것</h4>
 			</div>
 		</div>
 	</div>
 	<hr>
 
-	<c:if test="${!empty vo}">
-		<div class="container">
-			<h3 class="text-center">"${vo.title}"</h3>
-			<hr>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">내용</label>
-				<div class="col-sm-11">
-					<textarea class="form-control" rows="3" readonly>${vo.content}</textarea>
-				</div>
+	<div class="container">
+		<c:set var="admin" value="${user.admin}" />
+		<c:if test="${admin eq 'admin'}">
+			<div class="row-fluid text-center" style="margin-bottom: 20px">
+				<button id="writeBtn" class="btn btn-lg btn-outline-primary">등록하기</button>
 			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">차량번호</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control" value="${vo.car_id}"
-						readonly />
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">발견시간</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control" value="${vo.report_time}"
-						readonly />
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">발견위치</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control"
-						value="${vo.report_address}" readonly />
-				</div>
-			</div>
-
-			<hr>
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">이미지</label>
-				<div class="col-sm-11">
-					<img src="/project/resources/images/${vo.image}" class="img-fluid"
-						width="100%" alt="Responsive image">
-				</div>
-			</div>
-			<hr>
-
-		</div>
-	</c:if>
-	<div class="container text-center">
-		<button type="button" class="btn btn-lg btn-outline-primary"
-			id="confirmBtn">확인</button>
-		<c:set var="email1" value="${user.email}" />
-		<c:set var="email2" value="${email}" />
-		<c:if test="${email1 eq email2}">
-			<button type="button" class="btn btn-lg btn-outline-primary"
-				id="updateBtn">수정</button>
-			<button type="button" class="btn btn-lg btn-outline-danger"
-				id="deleteBtn">삭제</button>
 		</c:if>
-	</div>
 
-	<!-- FOOTER -->
-	<div class="footer">
-		<footer>
-			<p class="footertxt">Copyright @ 그자리아냐</p>
-		</footer>
+		<div class="accordion" id="accordionExample">
+			<c:if test="${!empty list}">
+				<c:set var="i" value="0" />
+				<c:forEach var="list" items="${list}">
+					<c:set var="i" value="${i + 1}" />
+
+					<div class="card">
+						<div class="card-header" id="heading${i}">
+							<h2 class="mb-0">
+								<button class="btn btn-link collapsed" type="button"
+									data-toggle="collapse" data-target="#collapse${i}"
+									aria-expanded="false" aria-controls="collapse${i}">${list.title}</button>
+							</h2>
+						</div>
+						<div id="collapse${i}" class="collapse"
+							aria-labelledby="heading${i}" data-parent="#accordionExample">
+							<div class="card-body">${list.content}</div>
+						</div>
+					</div>
+
+				</c:forEach>
+			</c:if>
+		</div>
+
 	</div>
 
 	<script>
-		$("#confirmBtn").click(function() {
-			location.href = "/project/parking/report";
+		$("#writeBtn").click(function() {
+			location.href = "/project/parking/qna/write";
 		});
-
-		$("#updateBtn")
-				.click(
-						function() {
-							location.href = "/project/parking/report/update?id=${vo.report_no}";
-						});
-
-		$("#deleteBtn")
-				.click(
-						function() {
-							location.href = "/project/parking/report/delete?id=${vo.report_no}";
-						});
 	</script>
+
 </body>
 </html>

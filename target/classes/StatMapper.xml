@@ -12,6 +12,11 @@
     	INSERT INTO STATS VALUES(#{stat_no}, #{report_no}, #{addressVO.address_level1}, #{addressVO.address_level2}, #{addressVO.address_level3}, #{timeVO.time_level1}, #{timeVO.time_level2}, #{timeVO.time_level3})
  	</insert>
  	
+ 	<!-- update -->
+ 	<update id="updateStat" parameterType="vo.StatsVO">
+ 		UPDATE STATS SET ADDRESS_LEVEL1 = #{addressVO.address_level1}, ADDRESS_LEVEL2 = #{addressVO.address_level2}, ADDRESS_LEVEL3 = #{addressVO.address_level3}, TIME_LEVEL1 = #{timeVO.time_level1}, TIME_LEVEL2 = #{timeVO.time_level2}, TIME_LEVEL3 = #{timeVO.time_level3} WHERE REPORT_NO = #{report_no}
+ 	</update>
+ 	
  	<!-- search -->
  	<select id="searchStat" parameterType="vo.StatSearchVO" resultType="vo.StatSearchVO">
  		<choose>

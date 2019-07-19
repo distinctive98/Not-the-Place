@@ -14,9 +14,19 @@
     	SELECT * FROM REPORTS WHERE REPORT_NO = #{id}
  	</select>
  	
+ 	<!-- selectReportsCnt -->
+ 	<select id="selectReportsCnt" resultType="int">
+ 		SELECT COUNT(*) FROM REPORTS
+ 	</select>
+ 	
  	<!-- selectReport_no -->
  	<select id="selectReport_no" parameterType="String" resultType="vo.ReportsVO">
  		SELECT * FROM REPORTS WHERE IMAGE = #{fileName}
+ 	</select>
+ 	
+ 	<!-- selectPaginationReports -->
+ 	<select id="selectPaginationReports" parameterType="int" resultType="vo.ReportsVO">
+ 		SELECT S.* FROM(SELECT ROW_NUMBER() OVER(ORDER BY R.WRITEDATE DESC) NUM, R.* FROM REPORTS R) S WHERE NUM BETWEEN #{startIndex} AND #{startIndex}+5
  	</select>
  	
  	<!-- insert -->
@@ -31,4 +41,9 @@
  	<delete id="deleteReport" parameterType="int">
  		DELETE FROM REPORTS WHERE REPORT_NO = #{id}
  	</delete>
+ 	
+ 	<!-- update -->
+ 	<update id="updateReport" parameterType="vo.ReportsVO">
+ 		UPDATE REPORTS SET TITLE = #{title}, CONTENT = #{content}, CAR_ID = #{car_id}, REPORT_TIME = #{report_time}, REPORT_ADDRESS = #{report_address}, IMAGE = #{image}	WHERE REPORT_NO = #{report_no} 
+ 	</update>
 </mapper>

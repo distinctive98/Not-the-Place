@@ -6,10 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-1.7.js"></script>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
+<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	
 <link rel="stylesheet"
 	href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
 	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -38,8 +40,9 @@
 </head>
 <body>
 
+	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-		<div class="container">
+		<div class="container-fluid">
 			<a class="navbar-brand" href="/project/parking/main"
 				style="padding-top: 0 !important; padding-bottom: 0 !important; margin-right: 0 !important;">
 				<img src="/project/resources/images/title1.png"
@@ -53,25 +56,32 @@
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/report">신고하기 <!--nav-item 뒤에 active쓰고 신고 게시판 뒤에 <span class="sr-only">(current)</span> 이거 붙여야 흰색으로 나옴  -->
-					</a></li>
+						href="/project/parking/report">신고하기</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/stat">통계</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/qna">Q&amp;A</a></li>
-					<c:if test="${empty user}">
-						<li class="nav-item"><a class="nav-link"
-							href="/project/parking/login">로그인</a></li>
-					</c:if>
-					<c:if test="${!empty user}">
-						<li class="nav-item"><a class="nav-link"
-							href="/project/parking/logout">로그아웃</a></li>
-					</c:if>
 				</ul>
-
 			</div>
+			<c:if test="${empty user}">
+				<a href="/project/parking/login"><button type="button"
+						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+			</c:if>
+			<c:if test="${!empty user}">
+				<!-- <li class="nav-item"><a class="nav-link"
+							 href="/project/parking/logout">로그아웃</a></li> -->
+				<div class="btn-group">
+					<button type="button" class="btn btn-secondary dropdown-toggle"
+						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<button class="dropdown-item" type="button">마이페이지</button>
+						<a href="/project/parking/logout"><button
+								class="dropdown-item" type="button">로그아웃</button></a>
+					</div>
+				</div>
+			</c:if>
 		</div>
 	</nav>
 

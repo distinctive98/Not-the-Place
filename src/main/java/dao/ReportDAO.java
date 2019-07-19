@@ -29,6 +29,18 @@ public class ReportDAO {
 		return vo;
 	}
 	
+	public int selectReportsCnt() {
+		String statement = "resource.ReportMapper.selectReportsCnt";
+		return session.selectOne(statement);
+	}
+	
+	public List<ReportsVO> selectPaginationReports(int startIndex){
+		List<ReportsVO> list = null;
+		String statement = "resource.ReportMapper.selectPaginationReports";
+		list = session.selectList(statement, startIndex);
+		return list;
+	}
+	
 	public ReportsVO selectReport_no(String fileName) {
 		ReportsVO vo = null;
 		String statement = "resource.ReportMapper.selectReport_no";
@@ -56,6 +68,15 @@ public class ReportDAO {
 		boolean result = true;
 		String statement = "resource.ReportMapper.deleteReport";
 		if(session.delete(statement, id) != 1) {
+			result = false;
+		}
+		return result;
+	}
+	
+	public boolean updateReport(ReportsVO vo) {
+		boolean result = true;
+		String statement = "resource.ReportMapper.updateReport";
+		if(session.update(statement, vo) != 1) {
 			result = false;
 		}
 		return result;

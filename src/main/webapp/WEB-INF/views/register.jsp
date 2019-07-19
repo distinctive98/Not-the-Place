@@ -78,12 +78,16 @@
 	display: block;
 	width: 100%;
 	margin-bottom: 0;
-	/* Override default `<label>` margin */
 	line-height: 1.5;
 	color: #495057;
 	border: 1px solid transparent;
 	border-radius: .25rem;
 	transition: all .1s ease-in-out;
+}
+
+.imgloc {
+	margin-top: 2%;
+	margin-left: 45%;
 }
 </style>
 </head>
@@ -92,20 +96,19 @@
 	<div class="container text-center">
 		<div style="margin-top: 150px"></div>
 		<div class="container">
-			<a href="/project/parking/main"><img class="imgloc"
-				src="/project/resources/images/title2.png" id="mainBtn"
-				style="width: 200px !important;"></a>
+			<img class="imgloc"
+				src="/project/resources/images/title2.png" id="mainImg"
+				style="width: 200px !important; margin-bottom: -30px">
 		</div>
 		<div class="row">
 			<div class="col-lg-13 col-xl-10 mx-auto">
 				<div class="card card-signin flex-row my-5">
-					<!-- 네비게이터에서 위에서 아래로 5px정도 떨군다는거 같음  -->
 					<div class="card-img-left d-none d-md-flex">
 						<!-- Background image for card set in CSS! -->
 					</div>
 					<div class="card-body">
 						<h5 class="card-title text-center"
-							style="text-align: center; font-family: NanumBarunGothic">환영합니다!</h5>
+							style="text-align: center; font-family: NanumBarunGothic; margin-bottom: -10px">환영합니다!</h5>
 
 						<form class="form-signin" action="/project/parking/register"
 							method="post" onsubmit='return regcheck();'>
@@ -127,12 +130,11 @@
 									placeholder="비밀번호재확인"
 									style="font-family: NanumBarunGothic; margin-bottom: -10px">
 							</div>
-
-							<p id="pwcheck" style="color: red"></p>
-
-
-
-
+							
+							<div class="form-label-group">
+								<p id="pwcheck" style="color: red"></p>
+							</div>
+							
 							<div class="form-label-group">
 								<input type="text" id="nickname" name="nickname"
 									class="form-control" placeholder="사용할 이름"
@@ -154,9 +156,21 @@
 		</div>
 	</div>
 	<script>
+		$("#mainImg").click(function(){
+			location.href="/project/parking/main";
+		});
+	
 		$(document).ready(function() {
 			$('.login-info-box').fadeOut();
 			$('.login-show').addClass('show-log-panel');
+			
+			$('#confirmpassword').blur(function() {
+				if ($('#confirmpassword').val() != $('#password').val()) {
+					$('#pwcheck').text("비밀번호가 다릅니다.");
+				} else {
+					$('#pwcheck').text("");
+				}
+			});
 		});
 
 		$('.login-reg-panel input[type="radio"]').on('change', function() {
@@ -178,28 +192,7 @@
 				$('.register-show').removeClass('show-log-panel');
 			}
 		});
-	</script>
-
-	<script>
-		<c:if test="${!empty msg}">
-			alert("${msg}");
-			location.href="/project/parking/login";
-		</c:if>
-	</script>
-	
-	<script>
-		$(document).ready(function() {
-			$('#confirmpassword').blur(function() {
-				if ($('#confirmpassword').val() != $('#password').val()) {
-					$('#pwcheck').text("비밀번호가 다릅니다.");
-				} else {
-					$('#pwcheck').text("");
-				}
-			});
-		});
-	</script>
-	
-	<script>
+		
 		function regcheck() {
 			if (document.getElementById('email').value == "") {
 				alert("이메일을 입력해주세요!!!");
@@ -220,6 +213,10 @@
 				return true;
 			}
 		}
+		
+		<c:if test="${!empty msg}">
+			alert("${msg}");
+		</c:if>
 	</script>
 </body>
 </html>
