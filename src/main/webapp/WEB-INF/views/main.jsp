@@ -5,11 +5,6 @@
 <html lang="en">
 
 <head>
-<!-- 소스 복사 했을때 있던 것들인데 용도를 모름 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content=""> -->
 
 <title>그자리아냐</title>
 
@@ -35,7 +30,7 @@
 	text-align: center;
 }
 
-.cardimg {
+.card-img-top {
 	display: block;
 	margin: 0px auto;
 	width: 100px;
@@ -55,8 +50,12 @@
 }
 
 .nav-item {
-	font-family: "NanumMyeongjo";
+	font-family: "NanumSquare";
 	font-weight: bold;
+}
+
+.card-title, .card-text {
+	font-family: "NanumSquare";
 }
 </style>
 </head>
@@ -85,21 +84,19 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/qna">Q&amp;A</a></li>
+						href="/project/parking/qna">고객지원</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty user}">
 				<a href="/project/parking/login"><button type="button"
-						class="btn btn-secondary" style="margin-left:10px;">Login</button></a><
+						class="btn btn-secondary" style="margin-left:10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
-				<!-- <li class="nav-item"><a class="nav-link"
-							 href="/project/parking/logout">로그아웃</a></li> -->
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<button class="dropdown-item" type="button">마이페이지</button>
+						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
 						<a href="/project/parking/logout"><button
 								class="dropdown-item" type="button">로그아웃</button></a>
 					</div>
@@ -118,29 +115,29 @@
 	<!-- Page Content -->
 	<div class="container">
 		<div class="card-deck">
-			<div class="card" id="card1">
-				<img class="cardimg" src="/project/resources/images/cardimage1.png"
-					class="card-img-top" alt="...">
+			<div class="card">
+				<a href="#"><img  id="card1" src="/project/resources/images/cardimage1.png"
+					class="card-img-top" alt="..."></a>
 				<div class="card-body">
-					<h5 class="card-title">시민 자발적 신고 플랫폼</h5>
+					<h4 class="card-title">시민 자발적 신고 플랫폼</h4>
 					<p class="card-text">시민들은 불법 주차 차량 발견시, <br>자발적 신고를 통하여 <br>불법주차 근절에 <br>기여할
 						수 있습니다.</p>
 				</div>
 			</div>
-			<div class="card" id="card2">
-				<img class="cardimg" src="/project/resources/images/cardimage2.png"
-					class="card-img-top" alt="...">
+			<div class="card">
+				<a href="#"><img id="card2" src="/project/resources/images/cardimage2.png"
+					class="card-img-top" alt="..."></a>
 				<div class="card-body">
-					<h5 class="card-title">데이터 기반의 통계 정보</h5>
+					<h4 class="card-title">데이터 기반의 통계 정보</h4>
 					<p class="card-text">시민들이 신고한 데이터를 기반으로 <br>지역별, 시간대별로 <br>정확한 통계를
 						제공합니다.</p>
 				</div>
 			</div>
-			<div class="card" id="card3">
-				<img class="cardimg" src="/project/resources/images/cardimage3.png"
-					class="card-img-top" alt="...">
+			<div class="card">
+				<a href="#"><img id="card3" src="/project/resources/images/cardimage3.png"
+					class="card-img-top" alt="..."></a>
 				<div class="card-body">
-					<h5 class="card-title">주차장 위치 안내 서비스</h5>
+					<h4 class="card-title">주차장 위치 안내 서비스</h4>
 					<p class="card-text">주차장 위치 안내 서비스를 통해 <br>불법 주차를 줄여, <br> 긴급 출동 시간을
 						단축시키는데 <br>기여할 수 있습니다.</p>
 				</div>

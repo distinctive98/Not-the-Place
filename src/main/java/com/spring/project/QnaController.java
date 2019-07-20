@@ -18,6 +18,7 @@ public class QnaController {
 	@RequestMapping(value = "/parking/qna", method = RequestMethod.GET)
 	public ModelAndView getQna(QnaVO vo) {
 		ModelAndView mav = new ModelAndView();
+		
 		/*
 		if(user != null) {
 			mav.addObject("user", userDAO.selectAdmin(user.getEmail()));

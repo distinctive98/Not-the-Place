@@ -23,7 +23,7 @@
 
 <style>
 .nav-item {
-	font-family: "NanumMyeongjo";
+	font-family: "NanumSquare";
 	font-weight: bold;
 }
 
@@ -65,12 +65,12 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/qna">Q&amp;A</a></li>
+						href="/project/parking/qna">고객지원</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty user}">
 				<a href="/project/parking/login"><button type="button"
-						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+						class="btn btn-secondary" style="margin-left: 10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
 				<!-- <li class="nav-item"><a class="nav-link"
@@ -79,7 +79,7 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<button class="dropdown-item" type="button">마이페이지</button>
+						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
 						<a href="/project/parking/logout"><button
 								class="dropdown-item" type="button">로그아웃</button></a>
 					</div>
@@ -95,15 +95,10 @@
 		</script>
 	</c:if>
 
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<h1>신고 작성</h1>
-				<h4>세상을 변화시키는 작은 움직임</h4>
-			</div>
-		</div>
+	<div>
+		<img src="/project/resources/images/main_report_write.png" class="img-fluid" alt="">
 	</div>
-	<hr>
+	<br>
 
 	<div class="container">
 		<form method="post" action="/project/parking/report/write"

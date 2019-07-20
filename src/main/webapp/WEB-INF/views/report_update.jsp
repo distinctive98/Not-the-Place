@@ -20,10 +20,9 @@
 	integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
 	crossorigin=""></script>
 
-
 <style>
 .nav-item {
-	font-family: "NanumMyeongjo";
+	font-family: "NanumSquare";
 	font-weight: bold;
 }
 
@@ -65,12 +64,12 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/qna">Q&amp;A</a></li>
+						href="/project/parking/qna">고객지원</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty user}">
 				<a href="/project/parking/login"><button type="button"
-						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+						class="btn btn-secondary" style="margin-left: 10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
 				<!-- <li class="nav-item"><a class="nav-link"
@@ -102,15 +101,10 @@
 		</script>
 	</c:if>
 
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<h1>신고 수정</h1>
-				<h4>세상을 변화시키는 작은 움직임</h4>
-			</div>
-		</div>
+	<div>
+		<img src="/project/resources/images/main_qna.png" class="img-fluid" alt="">
 	</div>
-	<hr>
+	<br>
 
 	<c:if test="${!empty vo}">
 		<div class="container">
@@ -255,6 +249,7 @@
 		}
 
 		function showError(error) {
+			/*
 			switch (error.code) {
 			case error.PERMISSION_DENIED:
 				alert("사용자가 위치 기능 사용을 거부했습니다.");
@@ -270,6 +265,7 @@
 			case error.UNKNOWN_ERROR:
 				alert("기타 에러");
 			}
+			*/
 
 			map = L.map('map').setView([ 37.5017, 127.0409 ], 17);
 			L

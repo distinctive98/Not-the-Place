@@ -34,6 +34,14 @@ public class UserDAO {
 		} else {
 			return null;
 		}
-		
+	}
+	
+	public boolean updatePassword(UsersVO vo) {
+		boolean result = true;
+		String statement = "resource.UserMapper.updatePassword";
+		if(session.update(statement, vo) != 1) {
+			result = false;
+		}
+		return result;
 	}
 }

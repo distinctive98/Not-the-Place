@@ -32,16 +32,21 @@ public class RegisterController {
 				System.out.println(checkEmail);
 				System.out.println(checkNickname);
 				if (checkEmail) {
-					mav.addObject("msg", "이메일 중복");
+					mav.addObject("msg", "이메일이 중복입니다");
 				} else if (checkNickname) {
-					mav.addObject("msg", "닉네임 중복");
+					mav.addObject("msg", "닉네임이 중복입니다");
 				}
 				// 회원가입 완료
 			} else {
-				if (dao.insert(vo))
-					mav.addObject("msg", "회원가입 축하드립니다");
-				else
-					mav.addObject("msg", "회원가입 실패..");
+				if (dao.insert(vo)) {
+					mav.addObject("result", "success");
+					mav.addObject("msg", "회원가입을 축하드립니다");
+				}
+				else {
+					mav.addObject("result", "fail");
+					mav.addObject("msg", "회원가입을 실패하였습니다");
+				}
+					
 			}
 		}
 		mav.setViewName("register");

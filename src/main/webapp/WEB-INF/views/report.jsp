@@ -14,20 +14,18 @@
 
 <style>
 .nav-item {
-	font-family: "NanumMyeongjo";
+	font-family: "NanumSquare";
 	font-weight: bold;
+}
+
+.btn, .card-title {
+	font-family: "NanumSquare";
 }
 
 .card {
 	border: 0;
 	box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.2);
 	overflow: hidden;
-}
-
-.card-title {
-	/* font-family: "NanumBarunGothic";
-	font-size : 20px; */
-	
 }
 
 .footer {
@@ -66,12 +64,12 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/qna">Q&amp;A</a></li>
+						href="/project/parking/qna">고객지원</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty user}">
 				<a href="/project/parking/login"><button type="button"
-						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+						class="btn btn-secondary" style="margin-left: 10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
 				<!-- <li class="nav-item"><a class="nav-link"
@@ -80,7 +78,7 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<button class="dropdown-item" type="button">마이페이지</button>
+						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
 						<a href="/project/parking/logout"><button
 								class="dropdown-item" type="button">로그아웃</button></a>
 					</div>
@@ -89,22 +87,17 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<h1>신고 게시판</h1>
-				<h4>시민 자발적 신고 플랫폼</h4>
-			</div>
-		</div>
+	<div>
+		<img src="/project/resources/images/main_report.png" class="img-fluid" alt="">
 	</div>
-	<hr>
+	<br>
 
 	<!-- Page Content -->
 	<div class="container">
 		<!-- Page Heading -->
 		<div class="row-fluid text-center"
 			style="margin-bottom: 20px; float: right;">
-			<button id="writeBtn" class="btn btn-lg btn-secondary">신고하기</button>
+			<button id="writeBtn" class="btn btn-lg btn-secondary">게시글 작성</button>
 		</div>
 
 		<div class="row" style="clear: both">
@@ -141,51 +134,30 @@
 		<!-- /.row -->
 
 		<!-- Pagination -->
-		<div>
-
-			<c:if test="${pagination.curRange ne 1}">
-				<a href="#" onClick="paging(1)">[처음]</a>
-			</c:if>
+		<ul class="pagination justify-content-center">
 			<c:if test="${pagination.curPage ne 1}">
-				<a href="#" onClick="paging('${pagination.prevPage}')"></a>
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Previous" onClick="paging('${pagination.prevPage}')">
+						<span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span>
+				</a></li>
 			</c:if>
-
 			<c:forEach var="pageNum" begin="${pagination.startPage}"
 				end="${pagination.endPage}">
 				<c:choose>
 					<c:when test="${pageNum eq pagination.curPage}">
-						<span style="font-weight: bold;"><a href="#"
-							onclick="paging('${pageNum}')">${pageNum}</a></span>
+						<li class="page-item" style="font-weight: bold;"><a
+							class="page-link" href="#" onclick="paging('${pageNum}')">${pageNum}</a></li>
 					</c:when>
 					<c:otherwise>
-						<a href="#" onclick="paging('${pageNum}')">${pageNum }</a>
+						<li class="page-item"><a class="page-link" href="#"
+							onclick="paging('${pageNum}')">${pageNum}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-
-			<c:if
-				test="${pagination.curPage ne pagination.pageCnt && pagination.pageCnt > 0}">
-				<a href="#" onClick="paging('${pagination.nextPage }')">[다음]</a>
-			</c:if>
-			<c:if
-				test="${pagination.curRange ne pagination.rangeCnt && pagination.rangeCnt > 0}">
-				<a href="#" onClick="paging('${pagination.pageCnt }')">[끝]</a>
-			</c:if>
-		</div>
-
-		<!-- <ul class="pagination justify-content-center">
 			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span
-					class="sr-only">Previous</span>
-			</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-					class="sr-only">Next</span>
-			</a></li>
-		</ul> -->
+				aria-label="Next" onClick="paging('${pagination.nextPage }')"> <span
+					aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>
+		</ul>
 	</div>
 	<!-- /.container -->
 

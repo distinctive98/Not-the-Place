@@ -4,18 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <style>
 .nav-item {
 	font-family: "NanumSquare";
 	font-weight: bold;
+}
+
+.col-form-label {
+	text-align: center;
 }
 
 .footer {
@@ -30,10 +33,8 @@
 	color: white;
 }
 </style>
-
 </head>
 <body>
-
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container-fluid">
@@ -70,104 +71,122 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">My Page</button></a>
+						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
 						<a href="/project/parking/logout"><button
-								class="dropdown-item" type="button">Logout</button></a>
+								class="dropdown-item" type="button">로그아웃</button></a>
 					</div>
 				</div>
 			</c:if>
 		</div>
 	</nav>
 
-	<div>
-		<img src="/project/resources/images/main_report_select.png" class="img-fluid" alt="">
-	</div>
-	<br>
-
-	<c:if test="${!empty vo}">
-		<div class="container">
-			<h3 class="text-center">"${vo.title}"</h3>
-			<hr>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">내용</label>
-				<div class="col-sm-11">
-					<textarea class="form-control" rows="3" readonly>${vo.content}</textarea>
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">차량번호</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control" value="${vo.car_id}"
-						readonly />
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">발견시간</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control" value="${vo.report_time}"
-						readonly />
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">발견위치</label>
-				<div class="col-sm-11">
-					<input type="text" class="form-control"
-						value="${vo.report_address}" readonly />
-				</div>
-			</div>
-
-			<hr>
-			<div class="form-group row">
-				<label class="col-sm-1 col-form-label">이미지</label>
-				<div class="col-sm-11">
-					<img src="/project/resources/images/${vo.image}" class="img-fluid"
-						width="100%" alt="Responsive image">
-				</div>
-			</div>
-			<hr>
-
-		</div>
+	<c:if test="${empty user}">
+		<script>
+			alert("로그인 후 이용하실 수 있습니다")
+			location.href = "/project/parking/login";
+		</script>
 	</c:if>
-	<div class="container text-center">
-		<button type="button" class="btn btn-lg btn-outline-primary"
-			id="confirmBtn">확인</button>
-		<c:set var="email1" value="${user.email}" />
-		<c:set var="email2" value="${email}" />
-		<c:if test="${email1 eq email2}">
-			<button type="button" class="btn btn-lg btn-outline-primary"
-				id="updateBtn">수정</button>
-			<button type="button" class="btn btn-lg btn-outline-danger"
-				id="deleteBtn">삭제</button>
-		</c:if>
+
+	<div class="container-fluid center">
+		<div class="text-center" style="height: 300px">
+			<div style="padding-top: 100px">
+				<h1>내 정보 수정</h1>
+			</div>
+		</div>
 	</div>
+	<hr>
+
+	<div class="container">
+		<form method="post" action="/project/parking/mypage/update">
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">이메일</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="email"
+						value="${user.email}" readonly>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">닉네임</label>
+				<div class="col-sm-10">
+					<input class="form-control" value="${user.nickname}" readonly></input>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">비밀번호</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="passwordForm"
+						name="password" placeholder="비밀번호를 입력하세요" required></input>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">비밀번호 확인</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="repasswordForm" name="repassword"
+						placeholder="비밀번호를 한번 더 입력하세요" required></input>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label"> </label>
+				<div class="col-sm-10">
+					<p id="passwordCheckForm" style="color: red"></p>
+				</div>
+			</div>
+
+			<div class="container text-center" style="margin-top: 100px;">
+				<button type="submit" class="btn btn-lg btn-outline-primary">수정하기</button>
+				<button type="button" class="btn btn-outline-secondary btn-lg"
+					id="cancelBtn">취소하기</button>
+			</div>
+		</form>
+	</div>
+
+	<c:if test="${!empty msg}">
+		<c:choose>
+			<c:when test="${msg eq 'success'}">
+				<script>
+					alert("수정이 완료되었습니다");
+					location.href = "/project/parking/logout";
+				</script>
+			</c:when>
+			<c:when test="${msg eq 'password'}">
+				<script>
+					alert("비밀번호가 다릅니다");
+				</script>
+			</c:when>
+			<c:otherwise>
+				<script>
+					alert("수정에 실패하였습니다");
+				</script>
+			</c:otherwise>
+		</c:choose>
+	</c:if>
+
 
 	<!-- FOOTER -->
-	<div class="footer">
+	<div class="footer" style="margin-top: 50px;">
 		<footer>
 			<p class="footertxt">Copyright @ 그자리아냐</p>
 		</footer>
 	</div>
 
 	<script>
-		$("#confirmBtn").click(function() {
-			location.href = "/project/parking/report";
+		$('#repasswordForm').blur(function() {
+			if ($('#repasswordForm').val() != $('#passwordForm').val()) {
+				$('#passwordCheckForm').text("비밀번호가 다릅니다");
+			} else {
+				$('#passwordCheckForm').text(" ");
+			}
 		});
 
-		$("#updateBtn")
-				.click(
-						function() {
-							location.href = "/project/parking/report/update?id=${vo.report_no}";
-						});
-
-		$("#deleteBtn")
-				.click(
-						function() {
-							location.href = "/project/parking/report/delete?id=${vo.report_no}";
-						});
+		$('#cancelBtn').click(function() {
+			location.href = "/project/parking/mypage";
+		});
 	</script>
+
 </body>
 </html>

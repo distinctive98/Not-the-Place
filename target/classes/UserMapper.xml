@@ -15,4 +15,8 @@
 	<select id="selectAdmin" parameterType="String" resultType="vo.UsersVO">
 		SELECT ADMIN FROM USERS WHERE EMAIL = #{email}
 	</select>
+	
+	<update id="updatePassword" parameterType="vo.UsersVO">
+		UPDATE USERS SET PASSWORD = #{password} WHERE EMAIL = #{email}
+	</update>
 </mapper>

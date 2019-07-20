@@ -36,7 +36,7 @@ public class ReportController {
 		int listCnt = reportDAO.selectReportsCnt();
 		Pagination pagination = new Pagination(listCnt, curPage);
 		int startIndex = pagination.getStartIndex();
-		System.out.println(startIndex);
+		//System.out.println(startIndex);
 		
 		List<ReportsVO> list = reportDAO.selectPaginationReports(startIndex);
 		

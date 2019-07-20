@@ -172,7 +172,8 @@
 				}
 			});
 		});
-
+		
+		/*
 		$('.login-reg-panel input[type="radio"]').on('change', function() {
 			if ($('#log-login-show').is(':checked')) {
 				$('.register-info-box').fadeOut();
@@ -192,6 +193,7 @@
 				$('.register-show').removeClass('show-log-panel');
 			}
 		});
+		*/
 		
 		function regcheck() {
 			if (document.getElementById('email').value == "") {

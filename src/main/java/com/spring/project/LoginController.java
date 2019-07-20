@@ -31,6 +31,9 @@ public class LoginController {
 		UsersVO info = dao.login(vo);
 		if (info != null) {
 			System.out.println("로그인 성공");
+			vo.setNickname(info.getNickname());
+			vo.setAdmin(info.getAdmin());
+			vo.setUser_no(info.getUser_no());
 			mav.setViewName("main");
 		} else {
 			System.out.println("로그인 실패");

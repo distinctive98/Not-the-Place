@@ -14,7 +14,7 @@
 
 <style>
 .nav-item {
-	font-family: "NanumMyeongjo";
+	font-family: "NanumSquare";
 	font-weight: bold;
 }
 </style>
@@ -44,12 +44,12 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/qna">Q&amp;A</a></li>
+						href="/project/parking/qna">고객지원</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty user}">
 				<a href="/project/parking/login"><button type="button"
-						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+						class="btn btn-secondary" style="margin-left: 10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
 				<!-- <li class="nav-item"><a class="nav-link"
@@ -67,15 +67,11 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<h1>QNA 작성</h1>
-				<h4>궁금해 하는 모든 것</h4>
-			</div>
-		</div>
+	<div>
+		<img src="/project/resources/images/main_qna_write.png" class="img-fluid"
+			alt="">
 	</div>
-	<hr>
+	<br>
 
 	<div class="container">
 		<form method="post" action="/project/parking/qna/write">
@@ -96,7 +92,7 @@
 				</div>
 			</div>
 
-			<div class="container text-center">
+			<div class="container text-center" style="margin-top:50px;">
 				<button type="submit" class="btn btn-lg btn-outline-primary">작성하기</button>
 				<button type="button" class="btn btn-outline-secondary btn-lg"
 					id="cancelBtn">취소하기</button>

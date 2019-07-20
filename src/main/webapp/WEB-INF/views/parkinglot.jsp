@@ -21,7 +21,7 @@
 	crossorigin=""></script>
 <style>
 .nav-item {
-	font-family: "NanumMyeongjo";
+	font-family: "NanumSquare";
 	font-weight: bold;
 }
 
@@ -62,12 +62,12 @@
 					<li class="nav-item"><a class="nav-link"
 						href="/project/parking/parkinglot">주차장</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="/project/parking/qna">Q&amp;A</a></li>
+						href="/project/parking/qna">고객지원</a></li>
 				</ul>
 			</div>
 			<c:if test="${empty user}">
 				<a href="/project/parking/login"><button type="button"
-						class="btn btn-secondary" style="margin-left: 10px;">Login</button></a><
+						class="btn btn-secondary" style="margin-left: 10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
 				<!-- <li class="nav-item"><a class="nav-link"
@@ -76,7 +76,7 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<button class="dropdown-item" type="button">마이페이지</button>
+						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
 						<a href="/project/parking/logout"><button
 								class="dropdown-item" type="button">로그아웃</button></a>
 					</div>
@@ -85,15 +85,10 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<h1>주차장</h1>
-				<h4>전국 주차장을 한 눈에</h4>
-			</div>
-		</div>
+	<div>
+		<img src="/project/resources/images/main_parkinglot.png" class="img-fluid" alt="">
 	</div>
-	<hr>
+	<br>
 
 	<div class="container">
 		<div class="input-group mb-3">
@@ -170,15 +165,14 @@
 								</c:forEach>
 
 								group = L.layerGroup(marker);
+								var offset = Object.keys(group._layers)[0];
 								group.eachLayer(function(layer, i) {
 
 									var id = group.getLayerId(layer);
-									//console.log(id-45);
-									//console.log(address[id-45]);
-									layer.bindPopup("상호 : " + name[id - 45]
+									layer.bindPopup("상호 : " + name[id - offset]
 											+ "<br>" + "주소 : "
-											+ address[id - 45] + "<br>"
-											+ "전화번호 : " + tel[id - 45]);
+											+ address[id - offset] + "<br>"
+											+ "전화번호 : " + tel[id - offset]);
 
 								});
 								//group.addTo(mymap);

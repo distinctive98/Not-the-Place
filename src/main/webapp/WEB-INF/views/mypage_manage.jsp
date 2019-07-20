@@ -9,16 +9,15 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
 <style>
 .nav-item {
 	font-family: "NanumSquare";
 	font-weight: bold;
 }
 </style>
-
 </head>
 <body>
 	<!-- Navigation -->
@@ -51,8 +50,6 @@
 						class="btn btn-secondary" style="margin-left: 10px;">로그인</button></a><
 			</c:if>
 			<c:if test="${!empty user}">
-				<!-- <li class="nav-item"><a class="nav-link"
-							 href="/project/parking/logout">로그아웃</a></li> -->
 				<div class="btn-group">
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
@@ -67,59 +64,47 @@
 		</div>
 	</nav>
 
-	<div>
-		<img src="/project/resources/images/main_qna.png" class="img-fluid"
-			alt="">
-	</div>
-	<br>
-
-	<div class="container">
-		<h4>질문목록</h4>
-		<hr>
-
-		<div class="accordion" id="accordionExample">
-			<c:if test="${!empty list}">
-				<c:set var="i" value="0" />
-				<c:forEach var="list" items="${list}">
-					<c:set var="i" value="${i + 1}" />
-
-					<div class="card">
-						<div class="card-header" id="heading${i}">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button"
-									data-toggle="collapse" data-target="#collapse${i}"
-									aria-expanded="false" aria-controls="collapse${i}">${list.title}</button>
-							</h2>
-						</div>
-						<div id="collapse${i}" class="collapse"
-							aria-labelledby="heading${i}" data-parent="#accordionExample">
-							<div class="card-body">${list.content}</div>
-						</div>
-					</div>
-
-				</c:forEach>
-			</c:if>
+	<div class="container-fluid center">
+		<div class="text-center" style="height: 300px">
+			<div style="padding-top: 100px">
+				<h1>내 게시글 관리</h1>
+			</div>
 		</div>
-
-
-
+	</div>
+	<hr>
+	
+	<div class="container">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">First</th>
+					<th scope="col">Last</th>
+					<th scope="col">Handle</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<td>Mark</td>
+					<td>Otto</td>
+					<td>@mdo</td>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<td>Jacob</td>
+					<td>Thornton</td>
+					<td>@fat</td>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<td>Larry</td>
+					<td>the Bird</td>
+					<td>@twitter</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	
-	<div class="container" style="margin-top:50px;">
-		<c:if test="${!empty user}">
-			<c:if test="${user.admin eq 'admin'}">
-				<div class="row-fluid text-center" style="margin-bottom: 20px">
-					<button id="writeBtn" class="btn btn-lg btn-outline-primary">등록하기</button>
-				</div>
-			</c:if>
-		</c:if>
-	</div>
-	
-	<script>
-		$("#writeBtn").click(function() {
-			location.href = "/project/parking/qna/write";
-		});
-	</script>
-
 </body>
 </html>
