@@ -20,16 +20,18 @@ svg {
 }
 
 .bar {
-	fill: orange;
+	fill: #007a99;
 }
 
 .barNum {
-	font-size: 12pt;
+	font-family: NanumSquare;
+	font-size: 15pt;
+	color : blue;
 	text-anchor: middle;
 }
 
 .axis text {
-	font-family: sans-serif;
+	font-family: NanumSquare;
 	font-size: 12pt;
 }
 
@@ -39,7 +41,8 @@ svg {
 }
 
 .barName {
-	font-size: 11pt;
+	font-family: NanumSquare;
+	font-size: 12pt;
 	text-anchor: middle;
 }
 
@@ -47,7 +50,6 @@ svg {
 	font-family: "NanumSquare";
 	font-weight: bold;
 }
-
 </style>
 </head>
 <body>
@@ -88,9 +90,10 @@ svg {
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
-						<a href="/project/parking/logout"><button
-								class="dropdown-item" type="button">로그아웃</button></a>
+						<a href="/project/parking/mypage"><button
+								class="dropdown-item" type="button">마이페이지</button></a> <a
+							href="/project/parking/logout"><button class="dropdown-item"
+								type="button">로그아웃</button></a>
 					</div>
 				</div>
 			</c:if>
@@ -98,7 +101,8 @@ svg {
 	</nav>
 
 	<div>
-		<img src="/project/resources/images/main_stat.png" class="img-fluid" alt="">
+		<img src="/project/resources/images/main_stat.png" class="img-fluid"
+			alt="">
 	</div>
 
 	<hr>
@@ -142,11 +146,15 @@ svg {
 		<c:if test="${!empty title}">
 			<div class="contatiner text-center">
 				<c:choose>
-					<c:when test="${!empty title.addressTitle}&& ${!empty title.timeTitle}">
-							
+					<c:when
+						test="${!empty title.addressTitle}&& ${!empty title.timeTitle}">
+
 					</c:when>
 				</c:choose>
-				<h2><span>${title.addressTitle}</span><span> ${title.timeTitle}</span> 검색 결과입니다</h2>	
+				<h2 style="font-family: NanumSquare;">
+					<span>${title.addressTitle}</span><span> ${title.timeTitle}</span>
+					검색 결과입니다
+				</h2>
 			</div>
 			<br>
 		</c:if>
@@ -159,7 +167,7 @@ svg {
 		<div class="container">
 
 			<table class="table table-striped">
-				<thead>
+				<thead class="thead-light">
 					<tr>
 						<th scope="col">#</th>
 						<th scope="col">위치</th>
@@ -224,6 +232,15 @@ svg {
 				return i * 120 + 60;
 			})
 			.attr("y", 300+20)
+			// 이벤트 추가
+			.on("mouseover", function(){
+				d3.select(this)
+					.style("fill", "orange")
+				})
+			.on("mouseout", function(){
+				d3.select(this)
+					.style("fill", "#007a99")	
+				})
 			.transition()
 			.duration(1000)	// 1초동안 애니메이션 처리
 			.delay(function(d, i){
@@ -269,22 +286,28 @@ svg {
 			
 			barElements.enter()	// text 요소 지정
 			.append("text")	// text 요소 추가
+			.style("opacity", "0")
 			.attr("class", "barNum")	// CSS 클래스 설정
 			.attr("x", function(d, i){	// X 좌표를 지정
 				return i * 120 + 60 + 40;	// 막대그래프의 표시 간격을 맞춤
 			})
 			.attr("y", function(d, i){
-				return 300 - dataY(d);
-			})
-			.transition()
-			.duration(2000)
-			.delay(function(d, i){
-				return 2000;
+				return 300;
 			})
 			.text(function(d, i){	// 데이터 표시
 				return d;
 			})
-		
+			.transition()
+			.duration(1000)
+			.delay(function(d, i){
+				return 500;
+			})
+			.attr("y", function(d, i){
+				return 300 - dataY(d);
+			})
+			.style("opacity", "1")
+			
+			
 		</c:if>
 	</script>
 </body>

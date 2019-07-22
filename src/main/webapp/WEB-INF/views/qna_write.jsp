@@ -72,6 +72,13 @@
 			alt="">
 	</div>
 	<br>
+	
+	<c:if test="${empty user}">
+		<script>
+			alert("잘못된 접근입니다");
+			location.href = "/project/parking/qna";
+		</script>
+	</c:if>
 
 	<div class="container">
 		<form method="post" action="/project/parking/qna/write">

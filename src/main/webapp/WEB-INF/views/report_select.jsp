@@ -70,9 +70,10 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">My Page</button></a>
-						<a href="/project/parking/logout"><button
-								class="dropdown-item" type="button">Logout</button></a>
+						<a href="/project/parking/mypage"><button
+								class="dropdown-item" type="button">My Page</button></a> <a
+							href="/project/parking/logout"><button class="dropdown-item"
+								type="button">Logout</button></a>
 					</div>
 				</div>
 			</c:if>
@@ -80,14 +81,23 @@
 	</nav>
 
 	<div>
-		<img src="/project/resources/images/main_report_select.png" class="img-fluid" alt="">
+		<img src="/project/resources/images/main_report_select.png"
+			class="img-fluid" alt="">
 	</div>
+	<br>
 	<br>
 
 	<c:if test="${!empty vo}">
 		<div class="container">
 			<h3 class="text-center">"${vo.title}"</h3>
 			<hr>
+
+			<div class="form-group row">
+				<label class="col-sm-1 col-form-label">작성자</label>
+				<div class="col-sm-11">
+					<input type="text" class="form-control" value="${vo.nickname}" readonly />
+				</div>
+			</div>
 
 			<div class="form-group row">
 				<label class="col-sm-1 col-form-label">내용</label>
@@ -154,19 +164,33 @@
 
 	<script>
 		$("#confirmBtn").click(function() {
-			location.href = "/project/parking/report";
+			if(${empty sign}){
+				location.href = "/project/parking/report?curPage=${curPage}";
+			} else {
+				location.href = "/project/parking/mypage/manage";
+			}
 		});
 
 		$("#updateBtn")
 				.click(
 						function() {
-							location.href = "/project/parking/report/update?id=${vo.report_no}";
+							if(${empty sign}){
+								//location.href = "${ header.referer }";
+								location.href = "/project/parking/report/update?id=${vo.report_no}";
+							} else {
+								location.href = "/project/parking/report/update?id=${vo.report_no}&sign=mypage";
+							}
+							
 						});
 
 		$("#deleteBtn")
 				.click(
 						function() {
-							location.href = "/project/parking/report/delete?id=${vo.report_no}";
+							if(${empty sign}){
+								location.href = "/project/parking/report/delete?id=${vo.report_no}";
+							} else {
+								location.href = "/project/parking/report/delete?id=${vo.report_no}&sign=mypage";
+							}
 						});
 	</script>
 </body>

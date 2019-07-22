@@ -110,6 +110,9 @@
 		<div class="container">
 			<form method="post" action="/project/parking/report/update"
 				enctype="multipart/form-data">
+				<c:if test="${!empty sign}">
+					<input type="hidden" name="sign" value="mypage">
+				</c:if>
 				<input type="hidden" name="report_no" value="${vo.report_no}">
 				<input type="hidden" name="nickname" value="${vo.nickname}">
 				<div class="form-group row">
@@ -182,7 +185,12 @@
 
 	<script>
 		$("#cancelBtn").click(function() {
-			location.href = "/project/parking/report";
+			if(${!empty sign}){
+				location.href = "/project/parking/mypage/manage";
+			} else {
+				location.href = "/project/parking/report";
+			}
+			
 		});
 
 		$("#imageBtn").change(function() {
@@ -226,7 +234,12 @@
 								id : 'mapbox.streets'
 							}).addTo(map);
 
-			L.marker([ lat, lng ]).addTo(map).bindPopup("<b>불법 주차 위치")
+			var myIcon = L.icon({
+			    iconUrl: '/project/resources/images/ban.png',
+			    iconSize: [50, 50]
+			});
+
+			L.marker([ lat, lng ], {icon: myIcon}).addTo(map).bindPopup("<b>불법 주차 위치", {offset :[0,-20]})
 					.openPopup();
 
 			var latlng = encodeURIComponent(lat + "," + lng);
@@ -267,7 +280,7 @@
 			}
 			*/
 
-			map = L.map('map').setView([ 37.5017, 127.0409 ], 17);
+			map = L.map('map').setView([ 37.5017, 127.0409 ], 16);
 			L
 					.tileLayer(
 							'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -278,6 +291,25 @@
 										+ 'Imagery <a href="https://www.mapbox.com/">Mapbox</a>',
 								id : 'mapbox.streets'
 							}).addTo(map);
+			
+			var myIcon = L.icon({
+			    iconUrl: '/project/resources/images/ban.png',
+			    iconSize: [50, 50]
+			});
+			
+			L.marker([ 37.5017, 127.0409 ], {icon: myIcon}).addTo(map).bindPopup("<b>불법 주차 위치", {offset :[0,-20]})
+			.openPopup();
+			
+			var latlng = encodeURIComponent(37.5017 + "," + 127.0409);
+
+			$
+					.getJSON(
+							"https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD-nx_y7aBlJgfgVZRaIwMbnShQJsxpryY&latlng="
+									+ latlng, function(data) {
+								$("#report_addressForm").val(
+										data.results[0].formatted_address);
+
+							});
 
 			map.on('click', onMapClick);
 		}

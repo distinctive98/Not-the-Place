@@ -9,9 +9,29 @@
 		SELECT * FROM REPORTS ORDER BY REPORT_NO DESC
 	</select>
 	
+	<!-- selectReports -->
+	<select id="selectNicknameReports" parameterType="String" resultType="vo.ReportsVO">
+		SELECT * FROM REPORTS WHERE NICKNAME = #{nickname} ORDER BY REPORT_NO DESC
+	</select>
+	
 	<!-- selectReport -->
  	<select id="selectReport"  parameterType="int" resultType="vo.ReportsVO">
     	SELECT * FROM REPORTS WHERE REPORT_NO = #{id}
+ 	</select>
+ 	
+ 	<!-- searchReports -->
+	<select id="searchReports" parameterType="vo.ReportSearchVO" resultType="vo.ReportsVO">
+		SELECT * FROM REPORTS WHERE ${searchType} LIKE '%'||#{searchWord}||'%' ORDER BY REPORT_NO DESC
+	</select>
+	
+	<!-- searchReportsSearchCnt -->
+ 	<select id="selectReportsSearchCnt" parameterType="vo.ReportSearchVO" resultType="int">
+ 		SELECT COUNT(*) FROM REPORTS WHERE ${searchType} LIKE '%'||#{searchWord}||'%'
+ 	</select>
+ 	
+ 	<!-- selectPaginationSearchReports -->
+ 	<select id="selectPaginationSearchReports" parameterType="vo.ReportSearchVO" resultType="vo.ReportsVO">
+ 		SELECT S.* FROM(SELECT ROW_NUMBER() OVER(ORDER BY R.WRITEDATE DESC) NUM, R.* FROM REPORTS R WHERE ${searchType} LIKE '%'||#{searchWord}||'%') S WHERE NUM BETWEEN #{startIndex} AND #{startIndex}+5
  	</select>
  	
  	<!-- selectReportsCnt -->
@@ -45,5 +65,10 @@
  	<!-- update -->
  	<update id="updateReport" parameterType="vo.ReportsVO">
  		UPDATE REPORTS SET TITLE = #{title}, CONTENT = #{content}, CAR_ID = #{car_id}, REPORT_TIME = #{report_time}, REPORT_ADDRESS = #{report_address}, IMAGE = #{image}	WHERE REPORT_NO = #{report_no} 
+ 	</update>
+ 	
+ 	<!-- updateCnt -->
+ 	<update id="updateReportCnt" parameterType="int">
+ 		UPDATE REPORTS SET CNT = CNT+1 WHERE REPORT_NO = #{id} 
  	</update>
 </mapper>

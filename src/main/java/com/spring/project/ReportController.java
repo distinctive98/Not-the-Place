@@ -48,20 +48,48 @@ public class ReportController {
 		mav.setViewName("report");
 		return mav;
 	}
+	
+	@RequestMapping(value = "/parking/report/search", method = RequestMethod.GET)
+	protected ModelAndView getReportUpdate(@RequestParam(defaultValue="1") int curPage, ReportSearchVO searchVO) {
+		ModelAndView mav = new ModelAndView();
+		
+		int listCnt = reportDAO.selectReportsSearchCnt(searchVO);
+		Pagination pagination = new Pagination(listCnt, curPage);
+		int startIndex = pagination.getStartIndex();
+		searchVO.setStartIndex(startIndex);
+		
+		//List<ReportsVO> list = reportDAO.searchReports(searchVO);
+		List<ReportsVO> list = reportDAO.selectPaginationSearchReports(searchVO);
+		
+		mav.addObject("list", list);
+		mav.addObject("listCnt", listCnt);
+		mav.addObject("pagination", pagination);
+		mav.addObject("search", searchVO);
+		
+		mav.setViewName("report");
+		return mav;
+	}
 
 	@RequestMapping(value = "/parking/report/select", method = RequestMethod.GET)
-	protected ModelAndView getReportSelect(int id) {
+	protected ModelAndView getReportSelect(@RequestParam(defaultValue="1") int curPage, int id, String sign) {
 		ModelAndView mav = new ModelAndView();
 		// vo 정보 받기
 		ReportsVO vo = reportDAO.selectReport(id);
+		reportDAO.updateReportCnt(id);
 
 		if (vo == null) {
-			System.out.println("값이 전달되지 않았습니다.");
+			System.out.println("vo 값이 전달되지 않았습니다.");
 		}
 		String email = userDAO.selectEmail(vo.getNickname());
 
 		mav.addObject("email", email);
-		mav.addObject("vo", vo);
+		mav.addObject("curPage", curPage);
+		mav.addObject("vo", vo);	
+		
+		if(sign != null && sign.equals("mypage")) {
+			mav.addObject("sign", sign);
+		}
+		
 		mav.setViewName("report_select");
 
 		return mav;
@@ -127,26 +155,36 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/parking/report/delete", method = RequestMethod.GET)
-	protected String getReportDelete(int id) {
+	protected String getReportDelete(int id, String sign) {
 		if (reportDAO.deleteReport(id)) {
 			System.out.println("삭제 성공");
 		} else {
 			System.out.println("삭제 실패");
 		}
+		
+		if(sign != null && sign.equals("mypage")) {
+			return "redirect:/parking/mypage/manage";
+		}
 		return "redirect:/parking/report";
 	}
 
 	@RequestMapping(value = "/parking/report/update", method = RequestMethod.GET)
-	protected ModelAndView getReportUpdate(int id) {
+	protected ModelAndView getReportUpdate(int id, String sign) {
 		ModelAndView mav = new ModelAndView();
 		ReportsVO vo = reportDAO.selectReport(id);
 		mav.addObject("vo", vo);
+		
+		if(sign != null && sign.equals("mypage")) {
+			System.out.println("mypage 있음");
+			mav.addObject("sign", sign);
+		}
+		
 		mav.setViewName("report_update");
 		return mav;
 	}
 
 	@RequestMapping(value = "/parking/report/update", method = RequestMethod.POST)
-	protected String postReportUpdate(ReportsVO vo, MultipartRequest mreq) throws ParseException {
+	protected String postReportUpdate(ReportsVO vo, MultipartRequest mreq, String sign) throws ParseException {
 
 		// 이미지 새로 저장
 		MultipartFile mfile = mreq.getFile("imageInfo");
@@ -187,6 +225,13 @@ public class ReportController {
 			}
 		}
 		
+		System.out.println(sign);
+		
+		if(sign != null && sign.equals("mypage")) {
+			return "redirect:/parking/mypage/manage";
+		}
+		
 		return "redirect:/parking/report";
 	}
+	
 }

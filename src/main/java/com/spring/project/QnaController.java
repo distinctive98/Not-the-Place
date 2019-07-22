@@ -38,10 +38,44 @@ public class QnaController {
 	public String postQnaWrite(QnaVO vo, String email) {
 		vo.setNickname(userDAO.selectNickname(email));
 		if(qnaDAO.insertQna(vo)) {
-			System.out.println("QNA 등록에 성공");
+			System.out.println("QNA 등록 성공");
 		} else {
-			System.out.println("QNA 등록에 실패");
+			System.out.println("QNA 등록 실패");
 		}
+		
+		return "redirect:/parking/qna";
+	}
+	
+	@RequestMapping(value="/parking/qna/delete", method = RequestMethod.GET)
+	public String getQnaDelete(int id) {
+		if(qnaDAO.deleteQna(id)) {
+			System.out.println("QNA 삭제 성공");
+		} else {
+			System.out.println("QNA 삭제 실패");
+		}
+		return "redirect:/parking/qna";
+	}
+	
+	@RequestMapping(value="/parking/qna/update", method = RequestMethod.GET)
+	public ModelAndView getQnaUpdate(int id) {
+		ModelAndView mav = new ModelAndView();
+		QnaVO vo = qnaDAO.listOne(id);
+		
+		mav.addObject("vo", vo);
+		mav.setViewName("qna_update");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/parking/qna/update", method = RequestMethod.POST)
+	public String postQnaUpdate(QnaVO vo) {
+		if(qnaDAO.updateQna(vo)) {
+			System.out.println("QNA 수정 성공");
+		} else {
+			System.out.println("QNA 수정 실패");
+		}
+		
+		
 		
 		return "redirect:/parking/qna";
 	}

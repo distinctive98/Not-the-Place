@@ -64,47 +64,54 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<h1>내 게시글 관리</h1>
-			</div>
+	<div>
+		<img src="/project/resources/images/main_mypage_manage.png" class="img-fluid"
+			alt="">
+	</div>
+	<br>
+
+	<c:if test="${empty user}">
+		<script>
+			alert("로그인 후 이용할 수 있습니다");
+			location.href = "/project/parking/login";
+		</script>
+	</c:if>
+
+	<c:if test="${empty list}">
+		<script>
+			alert("잘못된 접근입니다");
+			location.href = "/project/parking/login";
+		</script>
+	</c:if>
+
+	<c:if test="${!empty list}">
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성자</th>
+						<th scope="col">조회수</th>
+						<th scope="col">수정</th>
+						<th scope="col">삭제</th>
+					</tr>
+				</thead>
+
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<th scope="row">${list.report_no}</th>
+						<td><a href="/project/parking/report/select?id=${list.report_no}&sign=mypage">${list.title}</a></td>
+						<td>${list.nickname}</td>
+						<td>${list.cnt}</td>
+						<td><a href="/project/parking/report/update?id=${list.report_no}&sign=mypage"><img alt="update" src="/project/resources/images/edit.png" width="30px;"></a></td>
+						<td><a href="/project/parking/report/delete?id=${list.report_no}&sign=mypage"><img alt="delete" src="/project/resources/images/delete.png" width="30px;"></a></td>
+					</tr>
+				</c:forEach>
+
+			</table>
 		</div>
-	</div>
-	<hr>
-	
-	<div class="container">
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">First</th>
-					<th scope="col">Last</th>
-					<th scope="col">Handle</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	
+	</c:if>
+
 </body>
 </html>

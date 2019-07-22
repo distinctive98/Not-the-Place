@@ -96,7 +96,7 @@
 				placeholder="지역을 입력하세요" aria-label="지역을 입력하세요"
 				aria-describedby="search">
 			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button" id="search">Button</button>
+				<button class="btn btn-outline-secondary" type="button" id="search">검색하기</button>
 			</div>
 		</div>
 
@@ -142,12 +142,12 @@
 
 							function setMarker() {
 
-								/*
+								
 								var myIcon = L.icon({
-								    iconUrl: '/project/resources/images/tomcat.png',
-								    iconSize: [30, 50]
+								    iconUrl: '/project/resources/images/parkinglotIcon.png',
+								    iconSize: [30, 40]
 								});				
-								 */
+								
 
 								var marker = new Array();
 								var parking_no = new Array();
@@ -157,7 +157,7 @@
 
 								<c:forEach items="${list}" var="list">
 								marker.push(L.marker([ "${list.lat}",
-										"${list.log}" ] /*, {icon: myIcon}*/));
+										"${list.log}" ], {icon: myIcon}));
 								name.push("${list.name}");
 								address.push("${list.address}");
 								tel.push("${list.tel}");

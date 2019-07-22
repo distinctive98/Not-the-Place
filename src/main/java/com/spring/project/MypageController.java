@@ -1,5 +1,7 @@
 package com.spring.project;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ public class MypageController {
 	LoginDAO loginDAO;
 	@Autowired
 	UserDAO userDAO;
+	@Autowired
+	ReportDAO reportDAO;
 	
 	@RequestMapping(value = "/parking/mypage", method = RequestMethod.GET)
 	public String getMypage() {
@@ -62,7 +66,11 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value = "/parking/mypage/manage", method = RequestMethod.GET)
-	public String getMypageManage() {
-		return "mypage_manage";
+	public ModelAndView getMypageManage(@SessionAttribute("user")UsersVO vo) {
+		ModelAndView mav = new ModelAndView();
+		List<ReportsVO> list = reportDAO.selectNicknameReports(vo.getNickname());
+		mav.addObject("list", list);
+		mav.setViewName("mypage_manage");
+		return mav;
 	}
 }

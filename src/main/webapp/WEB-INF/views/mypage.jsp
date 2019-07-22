@@ -18,12 +18,15 @@
 }
 
 .cardimg {
+	padding-top : 10px;
+}
+
+.cardimg {
 	display: block;
 	margin: 0px auto;
 	width: 100px;
 	height: auto;
 }
-
 </style>
 </head>
 <body>
@@ -63,9 +66,10 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
-						<a href="/project/parking/logout"><button
-								class="dropdown-item" type="button">로그아웃</button></a>
+						<a href="/project/parking/mypage"><button
+								class="dropdown-item" type="button">마이페이지</button></a> <a
+							href="/project/parking/logout"><button class="dropdown-item"
+								type="button">로그아웃</button></a>
 					</div>
 				</div>
 			</c:if>
@@ -78,77 +82,81 @@
 			location.href = "/project/parking/login";
 		</script>
 	</c:if>
-	
-	<div class="container-fluid center">
-		<div class="text-center" style="height: 300px">
-			<div style="padding-top: 100px">
-				<div class="inner-contents02 info-text">
-					<h1>My Page</h1>
-					<h4>내 정보를 확인하세요</h4>
-				</div>
-			</div>
-		</div>
+
+	<div>
+		<img src="/project/resources/images/main_mypage.png" class="img-fluid"
+			alt="">
 	</div>
-	<hr>
+	<br>
 
 	<div class="container text-center" style="margin-top: 50px;">
 		<c:choose>
 			<c:when test="${empty msg}">
 				<h2>보안을 위해 비밀번호를 입력해주세요</h2>
-				<form method="post" action="/project/parking/mypage"
-					style="margin-top: 50px;">
-					<input type="hidden" name="email" value="${user.email}">
 
-					<div class="form-group row">
-						<label class="col-sm-2 col-form-label" style="text-align: center">비밀번호</label>
-						<div class="col-sm-10">
-							<div class="input-group mb-3">
-								<input type="password" class="form-control" name="password"
-									placeholder="비밀번호 입력" aria-label="Recipient's username"
-									aria-describedby="button-addon2">
-								<div class="input-group-append">
-									<button class="btn btn-outline-secondary" type="submit"
-										id="button-addon2">확인</button>
+				<div class="row">
+					<div class="col"></div>
+					<div class="col-6">
+						<form method="post" action="/project/parking/mypage"
+							style="margin-top: 50px;">
+							<input type="hidden" name="email" value="${user.email}">
+
+							<div class="form-group row">
+								<label class="col-sm-2 col-form-label"
+									style="text-align: center">비밀번호</label>
+								<div class="col-sm-10">
+									<div class="input-group mb-3">
+										<input type="password" class="form-control" name="password"
+											placeholder="비밀번호 입력" aria-label="Recipient's username"
+											aria-describedby="button-addon2">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary" type="submit"
+												id="button-addon2">확인</button>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
+						</form>
+
 					</div>
-				</form>
+					<div class="col"></div>
+				</div>
+
 			</c:when>
 			<c:otherwise>
 				<c:if test="${msg eq 'success'}">
 					<div class="card-deck">
 						<div class="card" id="card1">
 							<img class="cardimg"
-								src="/project/resources/images/cardimage1.png"
+								src="/project/resources/images/cardimage4.png"
 								class="card-img-top" alt="...">
 							<div class="card-body">
-								<h5 class="card-title"><a href="/project/parking/mypage/update">내 정보 수정</a></h5>
-								<p class="card-text">
-								
-								</p>
+								<h5 class="card-title">
+									<a href="/project/parking/mypage/update">내 정보 수정</a>
+								</h5>
+								<p class="card-text"></p>
 							</div>
 						</div>
 						<div class="card" id="card2">
 							<img class="cardimg"
-								src="/project/resources/images/cardimage2.png"
+								src="/project/resources/images/cardimage5.png"
 								class="card-img-top" alt="...">
 							<div class="card-body">
-								<h5 class="card-title"><a href="#" onclick="goAway()">게시글 관리</a></h5>
-								<p class="card-text">
-									
-								</p>
+								<h5 class="card-title">
+									<a href="/project/parking/mypage/manage">게시글 관리</a>
+								</h5>
+								<p class="card-text"></p>
 							</div>
 						</div>
 						<div class="card" id="card3">
 							<img class="cardimg"
-								src="/project/resources/images/cardimage3.png"
+								src="/project/resources/images/cardimage6.png"
 								class="card-img-top" alt="...">
 							<div class="card-body">
-								<h5 class="card-title"><a href="#" onclick="goAway()">회원 탈퇴</a></h5>
-								<p class="card-text">
-									
-								</p>
+								<h5 class="card-title">
+									<a href="#" onclick="goAway()">회원 탈퇴</a>
+								</h5>
+								<p class="card-text"></p>
 							</div>
 						</div>
 					</div>
@@ -162,9 +170,9 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
+
 	<script>
-		var goAway = function(){
+		var goAway = function() {
 			alert("준비 중인 서비스입니다");
 		}
 	</script>

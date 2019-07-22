@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,7 +99,14 @@
 }
 </style>
 </head>
+
 <body>
+	<c:if test="${!empty msg}">
+		<script>
+			alert("${msg}");	
+		</script>
+	</c:if>
+
 	<div class="container text-center">
 		<div style="margin-top: 150px"></div>
 		<div class="container">

@@ -206,7 +206,7 @@
 		function coordToAddr(lat, lng) {
 			if (map)
 				map.remove();
-			map = L.map('map').setView([ lat, lng ], 17);
+			map = L.map('map').setView([ lat, lng ], 16);
 			L
 					.tileLayer(
 							'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -217,8 +217,13 @@
 										+ 'Imagery <a href="https://www.mapbox.com/">Mapbox</a>',
 								id : 'mapbox.streets'
 							}).addTo(map);
+			
+			var myIcon = L.icon({
+			    iconUrl: '/project/resources/images/ban.png',
+			    iconSize: [50, 50]
+			});
 
-			L.marker([ lat, lng ]).addTo(map).bindPopup("<b>불법 주차 위치")
+			L.marker([ lat, lng ], {icon: myIcon}).addTo(map).bindPopup("<b>불법 주차 위치", {offset :[0,-20]})
 					.openPopup();
 
 			var latlng = encodeURIComponent(lat + "," + lng);
@@ -259,7 +264,7 @@
 			}
 			*/
 
-			map = L.map('map').setView([ 37.5017, 127.0409 ], 17);
+			map = L.map('map').setView([ 37.5017, 127.0409 ], 16);
 			L
 					.tileLayer(
 							'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -271,7 +276,12 @@
 								id : 'mapbox.streets'
 							}).addTo(map);
 			
-			L.marker([ 37.5017, 127.0409 ]).addTo(map).bindPopup("<b>불법 주차 위치")
+			var myIcon = L.icon({
+			    iconUrl: '/project/resources/images/ban.png',
+			    iconSize: [50, 50]
+			});
+			
+			L.marker([ 37.5017, 127.0409 ], {icon: myIcon}).addTo(map).bindPopup("<b>불법 주차 위치", {offset :[0,-20]})
 			.openPopup();
 			
 			var latlng = encodeURIComponent(37.5017 + "," + 127.0409);

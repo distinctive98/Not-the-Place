@@ -17,6 +17,32 @@
 	font-family: "NanumSquare";
 	font-weight: bold;
 }
+
+.btn-link {
+	font-family: "NanumSquare";
+	color: black;
+}
+
+.btn-link:hover{
+	text-decoration : none;
+}
+
+.card-body {
+	font-family: "NanumSquare";
+}
+
+.footer {
+	margin-top: 100px;
+	background-color: #595959;
+	text-align: center;
+	height: 50px;
+	background-color: #595959;
+}
+
+.footertxt {
+	padding-top: 10px;
+	color: white;
+}
 </style>
 
 </head>
@@ -84,16 +110,42 @@
 					<c:set var="i" value="${i + 1}" />
 
 					<div class="card">
-						<div class="card-header" id="heading${i}">
-							<h2 class="mb-0">
-								<button class="btn btn-link collapsed" type="button"
-									data-toggle="collapse" data-target="#collapse${i}"
-									aria-expanded="false" aria-controls="collapse${i}">${list.title}</button>
-							</h2>
-						</div>
+						<c:choose>
+							<c:when test="${i%2 eq 1}">
+								<div class="card-header" id="heading${i}" style="background:#e6e6e6">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed" type="button"
+											data-toggle="collapse" data-target="#collapse${i}"
+											aria-expanded="false" aria-controls="collapse${i}">${list.title}</button>
+									</h2>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="card-header" id="heading${i}">
+									<h2 class="mb-0">
+										<button class="btn btn-link collapsed" type="button"
+											data-toggle="collapse" data-target="#collapse${i}"
+											aria-expanded="false" aria-controls="collapse${i}">${list.title}</button>
+									</h2>
+								</div>
+							</c:otherwise>
+						</c:choose>
+
 						<div id="collapse${i}" class="collapse"
 							aria-labelledby="heading${i}" data-parent="#accordionExample">
-							<div class="card-body">${list.content}</div>
+							<div class="card-body">
+								${list.content}
+								<hr>
+								<c:if test="${!empty user}">
+									<c:if test="${user.admin eq 'admin'}">
+										<button type="button" class="btn btn-outline-secondary"
+											id="updateBtn" onclick="updateQNA(${list.qna_no})">수정</button>
+										<button type="button" class="btn btn-outline-danger"
+											id="deleteBtn" onclick="deleteQNA(${list.qna_no})">삭제</button>
+									</c:if>
+								</c:if>
+
+							</div>
 						</div>
 					</div>
 
@@ -104,21 +156,36 @@
 
 
 	</div>
-	
-	<div class="container" style="margin-top:50px;">
+
+	<div class="container" style="margin-top: 50px;">
 		<c:if test="${!empty user}">
 			<c:if test="${user.admin eq 'admin'}">
 				<div class="row-fluid text-center" style="margin-bottom: 20px">
-					<button id="writeBtn" class="btn btn-lg btn-outline-primary">등록하기</button>
+					<button id="writeBtn" class="btn btn-lg btn-outline-secondary">등록하기</button>
 				</div>
 			</c:if>
 		</c:if>
 	</div>
-	
+
+	<!-- FOOTER -->
+	<div class="footer">
+		<footer>
+			<p class="footertxt">Copyright @ 그자리아냐</p>
+		</footer>
+	</div>
+
 	<script>
 		$("#writeBtn").click(function() {
 			location.href = "/project/parking/qna/write";
 		});
+		
+		var updateQNA = function(index){
+			location.href = "/project/parking/qna/update?id="+index;
+		};
+		
+		var deleteQNA = function(index){
+			location.href = "/project/parking/qna/delete?id="+index;
+		};
 	</script>
 
 </body>

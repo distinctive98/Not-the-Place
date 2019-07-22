@@ -29,9 +29,11 @@
 }
 
 .footer {
+	margin-top: 100px;
 	background-color: #595959;
 	text-align: center;
 	height: 50px;
+	background-color: #595959;
 }
 
 .footertxt {
@@ -42,6 +44,7 @@
 
 </head>
 <body>
+
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
 		<div class="container-fluid">
@@ -78,9 +81,10 @@
 					<button type="button" class="btn btn-secondary dropdown-toggle"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="/project/parking/mypage"><button class="dropdown-item" type="button">마이페이지</button></a>
-						<a href="/project/parking/logout"><button
-								class="dropdown-item" type="button">로그아웃</button></a>
+						<a href="/project/parking/mypage"><button
+								class="dropdown-item" type="button">마이페이지</button></a> <a
+							href="/project/parking/logout"><button class="dropdown-item"
+								type="button">로그아웃</button></a>
 					</div>
 				</div>
 			</c:if>
@@ -88,7 +92,8 @@
 	</nav>
 
 	<div>
-		<img src="/project/resources/images/main_report.png" class="img-fluid" alt="">
+		<img src="/project/resources/images/main_report.png" class="img-fluid"
+			alt="">
 	</div>
 	<br>
 
@@ -97,7 +102,8 @@
 		<!-- Page Heading -->
 		<div class="row-fluid text-center"
 			style="margin-bottom: 20px; float: right;">
-			<button id="writeBtn" class="btn btn-lg btn-secondary">게시글 작성</button>
+			<button id="writeBtn" class="btn btn-lg btn-secondary">게시글
+				작성</button>
 		</div>
 
 		<div class="row" style="clear: both">
@@ -106,23 +112,37 @@
 
 					<div class="col-sm-4 mb-4">
 						<div class="card h-100">
-							<a href="/project/parking/report/select?id=${list.report_no}"><img
+							<a href="/project/parking/report/select?id=${list.report_no}&curPage=${pagination.curPage}"><img
 								class="card-img-top"
 								src="/project/resources/images/${list.image}"
 								alt="/project/resources/images/dog.jpg" width="400" height="200"></a>
 							<div class="card-body">
 								<div class="row">
 									<h4 class="card-title">
-										<a href="/project/parking/report/select?id=${list.report_no}">${list.title}</a>
+										<a href="/project/parking/report/select?id=${list.report_no}&curPage=${pagination.curPage}">${list.title}</a>
 									</h4>
 								</div>
 								<div class="row">
 									<h5 class="card-title">작성자 : ${list.nickname}</h5>
 								</div>
+
 								<div class="row">
-									<h6 class="card-title">작성일 : ${list.writedate}</h6>
+									<div class="col-8" style="padding: 0">
+										<h6 class="card-title">작성일 : ${list.writedate}</h6>
+									</div>
+									<div class="col-4 text-right"
+										style="padding: 0; padding-right: 10px;">
+										<h6 class="card-title">조회수 : ${list.cnt}</h6>
+									</div>
 								</div>
 
+
+								<%-- <div class="row">
+									<h6 class="card-title">작성일 : ${list.writedate}</h6>
+								</div>
+								<div class="row">
+									<h6 class="card-title">조회수 : ${list.cnt}</h6>
+								</div> --%>
 
 							</div>
 						</div>
@@ -154,12 +174,55 @@
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<li class="page-item"><a class="page-link" href="#"
-				aria-label="Next" onClick="paging('${pagination.nextPage }')"> <span
-					aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span></a></li>
+			<c:if test="${pagination.curPage ne pagination.endPage}">
+				<li class="page-item"><a class="page-link" href="#"
+					aria-label="Next" onClick="paging('${pagination.nextPage }')">
+						<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+				</a></li>
+			</c:if>
 		</ul>
+		<br>
+
+		<!-- Search Bar -->
+
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-6">
+				<form method="GET" action="/project/parking/report/search">
+					<div class="form-group row">
+
+						<div class="col-sm-3" style="padding: 0;">
+							<div class="input-group mb-3 text-right">
+								<select class="custom-select" name="searchType">
+									<option value="nickname" selected>작성자</option>
+									<option value="report_address">지역명</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-sm-9">
+							<div class="input-group mb-3">
+								<input type="text" class="form-control" name="searchWord"
+									aria-describedby="button-addon2">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary" type="submit"
+										id="button-addon2">검색하기</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+			<div class="col"></div>
+		</div>
+
+
+
 	</div>
 	<!-- /.container -->
+
 
 	<!-- FOOTER -->
 	<div class="footer">
@@ -180,7 +243,12 @@
 		});
 		
 		var paging = function(curPage){
-			location.href = "/project/parking/report?curPage="+curPage;
+			if(${!empty search}){
+				location.href = "/project/parking/report/search?searchType=${search.searchType}&searchWord=${search.searchWord}&curPage="+curPage;
+			} else {
+				location.href = "/project/parking/report?curPage="+curPage;	
+			}
+			
 		};
 	</script>
 </body>

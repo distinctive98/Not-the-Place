@@ -37,6 +37,7 @@ public class LoginController {
 			mav.setViewName("main");
 		} else {
 			System.out.println("로그인 실패");
+			mav.addObject("msg", "로그인에 실패하였습니다");
 			mav.setViewName("login");
 		}
 		return mav;

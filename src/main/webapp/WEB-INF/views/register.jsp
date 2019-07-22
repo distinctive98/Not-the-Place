@@ -93,12 +93,25 @@
 </head>
 <body>
 
+	<c:if test="${!empty msg}">
+		<script>
+			alert("${msg}");
+		</script>
+	</c:if>
+	
+	<%-- 
+	<c:if test="${result eq 'success'}">
+		<script>
+			location.href = "/project/parking/login";
+		</script>
+	</c:if>
+ --%>
+
 	<div class="container text-center">
 		<div style="margin-top: 150px"></div>
 		<div class="container">
-			<img class="imgloc"
-				src="/project/resources/images/title2.png" id="mainImg"
-				style="width: 200px !important; margin-bottom: -30px">
+			<img class="imgloc" src="/project/resources/images/title2.png"
+				id="mainImg" style="width: 200px !important; margin-bottom: -30px">
 		</div>
 		<div class="row">
 			<div class="col-lg-13 col-xl-10 mx-auto">
@@ -130,11 +143,11 @@
 									placeholder="비밀번호재확인"
 									style="font-family: NanumBarunGothic; margin-bottom: -10px">
 							</div>
-							
+
 							<div class="form-label-group">
 								<p id="pwcheck" style="color: red"></p>
 							</div>
-							
+
 							<div class="form-label-group">
 								<input type="text" id="nickname" name="nickname"
 									class="form-control" placeholder="사용할 이름"
@@ -156,14 +169,14 @@
 		</div>
 	</div>
 	<script>
-		$("#mainImg").click(function(){
-			location.href="/project/parking/main";
+		$("#mainImg").click(function() {
+			location.href = "/project/parking/main";
 		});
-	
+
 		$(document).ready(function() {
 			$('.login-info-box').fadeOut();
 			$('.login-show').addClass('show-log-panel');
-			
+
 			$('#confirmpassword').blur(function() {
 				if ($('#confirmpassword').val() != $('#password').val()) {
 					$('#pwcheck').text("비밀번호가 다릅니다.");
@@ -172,7 +185,7 @@
 				}
 			});
 		});
-		
+
 		/*
 		$('.login-reg-panel input[type="radio"]').on('change', function() {
 			if ($('#log-login-show').is(':checked')) {
@@ -193,8 +206,8 @@
 				$('.register-show').removeClass('show-log-panel');
 			}
 		});
-		*/
-		
+		 */
+
 		function regcheck() {
 			if (document.getElementById('email').value == "") {
 				alert("이메일을 입력해주세요!!!");
@@ -215,10 +228,6 @@
 				return true;
 			}
 		}
-		
-		<c:if test="${!empty msg}">
-			alert("${msg}");
-		</c:if>
 	</script>
 </body>
 </html>
