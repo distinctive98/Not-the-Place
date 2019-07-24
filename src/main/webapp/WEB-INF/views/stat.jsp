@@ -19,10 +19,6 @@ svg {
 	border: 1px solid #cccccc;
 }
 
-.bar {
-	fill: #007a99;
-}
-
 .barNum {
 	font-family: NanumSquare;
 	font-size: 15pt;
@@ -152,7 +148,7 @@ svg {
 					</c:when>
 				</c:choose>
 				<h2 style="font-family: NanumSquare;">
-					<span>${title.addressTitle}</span><span> ${title.timeTitle}</span>
+					<span style="color:gray">${title.addressTitle}</span><span style="color:gray"> ${title.timeTitle}</span>
 					검색 결과입니다
 				</h2>
 			</div>
@@ -176,12 +172,12 @@ svg {
 					</tr>
 				</thead>
 				<c:set var="i" value="0" />
-				<c:forEach var="list" items="${list}">
+				<c:forEach var="list" items="${list}" begin="1" end="30" step="1">
 					<tbody>
 						<tr>
 							<c:set var="i" value="${i + 1}" />
 							<th scope="row">${i}</th>
-							<td>${list.addressLevel}</td>
+							<td><a href="/project/parking/report/search?searchType=report_address&searchWord=${list.addressLevel}">${list.addressLevel}</a></td>
 							<td>${list.timeLevel}</td>
 							<td>${list.count}</td>
 						</tr>
@@ -205,8 +201,13 @@ svg {
 				//alert("${list.addressLevel}")
 			</c:forEach>
 			
+			var min = d3.min(count, function(e){return e;});
+			var max = d3.max(count, function(e){return e;});
+			
 			var countMax = Math.max.apply(null, count);
 			var dataMax = countMax+10-(countMax%10);
+			
+			var colorSet = d3.scale.linear().domain([min, dataMax]).range(["gray", "green"]);
 				
 			var graph = d3.select("#graph");
 			var scaleY = d3.scale.linear().domain([0, dataMax]).range([300, 0]);
@@ -228,19 +229,23 @@ svg {
 			.attr("class", "bar")
 			.attr("height", 0)
 			.attr("width", 80)
+			.style("fill", function(d){return colorSet(d);})
 			.attr("x", function(d, i){
 				return i * 120 + 60;
 			})
 			.attr("y", 300+20)
 			// 이벤트 추가
+			/*
 			.on("mouseover", function(){
 				d3.select(this)
-					.style("fill", "orange")
+					.style("fill", "orange");
+					console.log(this);
 				})
 			.on("mouseout", function(){
 				d3.select(this)
-					.style("fill", "#007a99")	
+					.style("fill",  function(d){return colorSet(d);})	
 				})
+			*/
 			.transition()
 			.duration(1000)	// 1초동안 애니메이션 처리
 			.delay(function(d, i){
@@ -303,11 +308,9 @@ svg {
 				return 500;
 			})
 			.attr("y", function(d, i){
-				return 300 - dataY(d);
+				return 300 - dataY(d) + 10;
 			})
 			.style("opacity", "1")
-			
-			
 		</c:if>
 	</script>
 </body>

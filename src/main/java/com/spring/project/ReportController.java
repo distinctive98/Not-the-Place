@@ -50,7 +50,7 @@ public class ReportController {
 	}
 	
 	@RequestMapping(value = "/parking/report/search", method = RequestMethod.GET)
-	protected ModelAndView getReportUpdate(@RequestParam(defaultValue="1") int curPage, ReportSearchVO searchVO) {
+	protected ModelAndView getReportSearch(@RequestParam(defaultValue="1") int curPage, ReportSearchVO searchVO) {
 		ModelAndView mav = new ModelAndView();
 		
 		int listCnt = reportDAO.selectReportsSearchCnt(searchVO);
@@ -71,7 +71,7 @@ public class ReportController {
 	}
 
 	@RequestMapping(value = "/parking/report/select", method = RequestMethod.GET)
-	protected ModelAndView getReportSelect(@RequestParam(defaultValue="1") int curPage, int id, String sign) {
+	protected ModelAndView getReportSelect(@RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="null") String searchType, @RequestParam(defaultValue="null") String searchWord, int id, String sign) {
 		ModelAndView mav = new ModelAndView();
 		// vo 정보 받기
 		ReportsVO vo = reportDAO.selectReport(id);
@@ -88,6 +88,13 @@ public class ReportController {
 		
 		if(sign != null && sign.equals("mypage")) {
 			mav.addObject("sign", sign);
+		}
+		
+		if(!searchType.equals("null") && !searchWord.equals("null")) {
+			ReportSearchVO searchVO = new ReportSearchVO();
+			searchVO.setSearchType(searchType);
+			searchVO.setSearchWord(searchWord);
+			mav.addObject("search", searchVO);
 		}
 		
 		mav.setViewName("report_select");

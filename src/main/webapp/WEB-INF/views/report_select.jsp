@@ -147,7 +147,7 @@
 			id="confirmBtn">확인</button>
 		<c:set var="email1" value="${user.email}" />
 		<c:set var="email2" value="${email}" />
-		<c:if test="${email1 eq email2}">
+		<c:if test="${email1 eq email2 || (!empty user && user.admin eq 'admin')}">
 			<button type="button" class="btn btn-lg btn-outline-primary"
 				id="updateBtn">수정</button>
 			<button type="button" class="btn btn-lg btn-outline-danger"
@@ -165,7 +165,11 @@
 	<script>
 		$("#confirmBtn").click(function() {
 			if(${empty sign}){
-				location.href = "/project/parking/report?curPage=${curPage}";
+				if(${empty search}){
+					location.href = "/project/parking/report?curPage=${curPage}";	
+				} else {
+					location.href = "/project/parking/report/search?curPage=${curPage}&searchType=${search.searchType}&searchWord=${search.searchWord}";	
+				}
 			} else {
 				location.href = "/project/parking/mypage/manage";
 			}

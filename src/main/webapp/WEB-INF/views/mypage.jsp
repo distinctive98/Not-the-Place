@@ -27,6 +27,19 @@
 	width: 100px;
 	height: auto;
 }
+
+.footer {
+	margin-top: 200px;
+	background-color: #595959;
+	text-align: center;
+	height: 50px;
+	background-color: #595959;
+}
+
+.footertxt {
+	padding-top: 10px;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -169,6 +182,13 @@
 				</c:if>
 			</c:otherwise>
 		</c:choose>
+	</div>
+	
+	<!-- FOOTER -->
+	<div class="footer">
+		<footer>
+			<p class="footertxt">Copyright @ 그자리아냐</p>
+		</footer>
 	</div>
 
 	<script>
